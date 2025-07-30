@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue sur HeartBlue{% endblock %}
+
+{% block body %}
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{{ path('app_home') }}">HeartBlue</a>
+            <div>
+                {% if app.user %}
+                    <a href="{{ path('app_logout') }}">Déconnexion</a>
+                    <a href="{{ path('app_home_user') }}">Profil</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="me-3">Connexion</a>
+                    <a href="{{ path('app_register') }}">Inscription</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="container text-center mt-5">
+        <h1>Bienvenue sur <span class="text-primary">HeartBlue</span> ❤️</h1>
+        <p class="lead">Rencontrez des gens près de chez vous à travers des activités locales.</p>
+    </div>
+{% endblock %}
