@@ -23,25 +23,33 @@
             </div>
         </div>
     </nav>
-
+<img src="{{ asset('images/groupe.png') }}" alt="Bannière Hearth Blue" class="ma-classe-css">
 <div class="home-container">
     <header class="hero">
         <div class="overlay">
             <h1>Bienvenue sur Hearth Blue</h1>
-            <p>Rejoignez la communauté et participez à des activités près de chez vous.</p>
+            <p>
+            Tu veux rencontrer des gens près de chez toi ? Que tu sois à la recherche de l’amour, d’amitiés sincères ou juste d’un moment sympa à partager, Hearth Blue est là pour ça.
+            Ici, on se connecte d’abord grâce à des activités en commun : balade en forêt, soirée jeux, rando, yoga, concert, apéro, peu importe… ce qui compte, c’est de vivre des choses ensemble.<br>
+            Parce qu’on sait qu’aujourd’hui, les vraies rencontres ne commencent plus forcément autour d’un verre ou dans un bar, Hearth Blue te propose une autre façon de te rapprocher des autres : en rejoignant ou en créant des activités qui te ressemblent. <br>Pas besoin de swiper sans fin : ici, tu fais des rencontres naturelles, dans la vraie vie, autour de centres d’intérêt communs.
+            Que tu sois hétéro, queer, introverti, extraverti ou simplement curieux, tu trouveras forcément des gens avec qui partager de bons moments.
+            Rencontres amicales, histoires sérieuses ou simples discussions autour d’une passion.
+            </p>
             <a href="{{ path('app_activity_index') }}" class="cta">Explorer les activités</a>
         </div>
     </header>
 
     <section class="features">
         <h2>Pourquoi Hearth Blue ?</h2>
+        <img src="{{ asset('images/basketball.png') }}" alt="Bannière Hearth Blue" class="ma-classe-css">
         <div class="features-grid">
             <div class="feature-card">
-                <h3>Activités locales</h3>
+            
+                <h3>Bye bye routine, hello surprise.</h3>
                 <p>Participez à des événements organisés par les utilisateurs autour de vous.</p>
             </div>
             <div class="feature-card">
-                <h3>Créez la vôtre</h3>
+                <h3>Créez vos propre activités</h3>
                 <p>Proposez vos propres idées d'activités et rassemblez les gens.</p>
             </div>
             <div class="feature-card">
@@ -51,9 +59,33 @@
         </div>
     </section>
 
+    <div class="testimonials-section">
+    <h2>Ce que les membres disent</h2>
+    <div class="testimonial-slider-container">
+        <button class="slider-button left" onclick="slideTestimonials(-1)">‹</button>
+
+        <div class="testimonial-slider-wrapper">
+            <div class="testimonial-slider" id="testimonial-slider">
+                {% for testimonial in testimonials %}
+                    <div class="testimonial-card">
+                        <p>“{{ testimonial }}”</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <button class="slider-button right" onclick="slideTestimonials(1)">›</button>
+        
+    </div>
+    <img src="{{ asset('images/cycling.png') }}" alt="Bannière Hearth Blue" class="ma-classe-css">
+</div>
+
+
+
     <section class="call-to-action">
         <h2>Prêt(e) à commencer ?</h2>
         <a href="{{ path('app_register') }}" class="cta">Créer un compte</a>
     </section>
 </div>
+
+<script src="{{ asset('js/home.js') }}"></script>
 {% endblock %}
