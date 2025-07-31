@@ -1,12 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bienvenue sur HeartBlue{% endblock %}
+{% block title %}Hearth Blue - Accueil{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
 
 {% block body %}
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="{{ path('app_home') }}">HeartBlue</a>
+            <a class="navbar-brand" href="{{ path('app_home') }}">Heart Blue</a>
             <div>
                 {% if app.user %}
                     <a href="{{ path('app_logout') }}">Déconnexion</a>
@@ -19,10 +24,36 @@
         </div>
     </nav>
 
+<div class="home-container">
+    <header class="hero">
+        <div class="overlay">
+            <h1>Bienvenue sur Hearth Blue</h1>
+            <p>Rejoignez la communauté et participez à des activités près de chez vous.</p>
+            <a href="{{ path('app_activity_index') }}" class="cta">Explorer les activités</a>
+        </div>
+    </header>
 
+    <section class="features">
+        <h2>Pourquoi Hearth Blue ?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Activités locales</h3>
+                <p>Participez à des événements organisés par les utilisateurs autour de vous.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Créez la vôtre</h3>
+                <p>Proposez vos propres idées d'activités et rassemblez les gens.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Communauté</h3>
+                <p>Discutez, partagez et rencontrez de nouvelles personnes.</p>
+            </div>
+        </div>
+    </section>
 
-    <div class="container text-center mt-5">
-        <h1>Bienvenue sur <span class="text-primary">HeartBlue</span> ❤️</h1>
-        <p class="lead">Rencontrez des gens près de chez vous à travers des activités locales.</p>
-    </div>
+    <section class="call-to-action">
+        <h2>Prêt(e) à commencer ?</h2>
+        <a href="{{ path('app_register') }}" class="cta">Créer un compte</a>
+    </section>
+</div>
 {% endblock %}
