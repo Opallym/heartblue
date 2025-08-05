@@ -1,91 +1,109 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hearth Blue - Accueil{% endblock %}
+{% block title %}Hearth Blue - Une expérience unique{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
 {% endblock %}
 
 {% block body %}
+<nav class="navbar">
+    <div class="container navbar-container">
+        <a href="{{ path('app_home') }}" class="navbar-brand">Hearth Blue</a>
+        <ul class="navbar-menu">
+            <li><a href="{{ path('app_activity_index') }}">Activités</a></li>
+            <li><a href="{{ path('app_register') }}">Inscription</a></li>
+            {% if app.user %}
+                <li><a href="{{ path('app_home_user') }}">Profil</a></li>
+                <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+            {% else %}
+                <li><a href="{{ path('app_login') }}">Connexion</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="{{ path('app_home') }}">Heart Blue</a>
-            <div>
-                {% if app.user %}
-                    <a href="{{ path('app_logout') }}">Déconnexion</a>
-                    <a href="{{ path('app_home_user') }}">Profil</a>
-                {% else %}
-                    <a href="{{ path('app_login') }}" class="me-3">Connexion</a>
-                    <a href="{{ path('app_register') }}">Inscription</a>
-                {% endif %}
-            </div>
-        </div>
-    </nav>
-<img src="{{ asset('images/groupe.png') }}" alt="Bannière Hearth Blue" class="ma-classe-css">
-<div class="home-container">
-    <header class="hero">
-        <div class="overlay">
-            <h1>Bienvenue sur Hearth Blue</h1>
-            <p>
-            Tu veux rencontrer des gens près de chez toi ? Que tu sois à la recherche de l’amour, d’amitiés sincères ou juste d’un moment sympa à partager, Hearth Blue est là pour ça.
-            Ici, on se connecte d’abord grâce à des activités en commun : balade en forêt, soirée jeux, rando, yoga, concert, apéro, peu importe… ce qui compte, c’est de vivre des choses ensemble.<br>
-            Parce qu’on sait qu’aujourd’hui, les vraies rencontres ne commencent plus forcément autour d’un verre ou dans un bar, Hearth Blue te propose une autre façon de te rapprocher des autres : en rejoignant ou en créant des activités qui te ressemblent. <br>Pas besoin de swiper sans fin : ici, tu fais des rencontres naturelles, dans la vraie vie, autour de centres d’intérêt communs.
-            Que tu sois hétéro, queer, introverti, extraverti ou simplement curieux, tu trouveras forcément des gens avec qui partager de bons moments.
-            Rencontres amicales, histoires sérieuses ou simples discussions autour d’une passion.
-            </p>
-            <a href="{{ path('app_activity_index') }}" class="cta">Explorer les activités</a>
-        </div>
-    </header>
+<header class="hero" id="hero">
+    <div class="hero-content" data-aos="fade-up" data-aos-duration="1500">
+        <h1>Reconnecte-toi à la vie réelle, avec Hearth Blue</h1>
+        <p>Des rencontres vraies, autour d’activités qui te passionnent.<br>Rejoins une communauté qui bouge près de chez toi.</p>
+        <a href="{{ path('app_register') }}" class="btn-primary btn-hero">Commencer maintenant</a>
+    </div>
+    <div class="hero-visual">
+        <img src="{{ asset('images/hero-illustration.png') }}" alt="Illustration d'activités" />
+        <div class="hero-glow"></div>
+    </div>
+</header>
 
-    <section class="features">
-        <h2>Pourquoi Hearth Blue ?</h2>
-        <img src="{{ asset('images/basketball.png') }}" alt="Bannière Hearth Blue" class="ma-classe-css">
+<section class="features-section" id="features">
+    <div class="container">
+        <h2 data-aos="fade-right">Pourquoi choisir Hearth Blue ?</h2>
         <div class="features-grid">
-            <div class="feature-card">
-            
-                <h3>Bye bye routine, hello surprise.</h3>
-                <p>Participez à des événements organisés par les utilisateurs autour de vous.</p>
+            <div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
+                <img src="{{ asset('images/icon-surprise.svg') }}" alt="Surprise Icon">
+                <h3>Surprise et diversité</h3>
+                <p>Découvre des activités inédites, chaque jour près de toi.</p>
             </div>
-            <div class="feature-card">
-                <h3>Créez vos propre activités</h3>
-                <p>Proposez vos propres idées d'activités et rassemblez les gens.</p>
+            <div class="feature-card" data-aos="zoom-in" data-aos-delay="400">
+                <img src="{{ asset('images/icon-create.svg') }}" alt="Create Icon">
+                <h3>Crée ta communauté</h3>
+                <p>Organise tes propres événements et fais grandir ton cercle.</p>
             </div>
-            <div class="feature-card">
-                <h3>Communauté</h3>
-                <p>Discutez, partagez et rencontrez de nouvelles personnes.</p>
+            <div class="feature-card" data-aos="zoom-in" data-aos-delay="600">
+                <img src="{{ asset('images/icon-connection.svg') }}" alt="Connection Icon">
+                <h3>Vraies connexions</h3>
+                <p>Rencontre des gens authentiques qui partagent tes passions.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <div class="testimonials-section">
-    <h2>Ce que les membres disent</h2>
-    <div class="testimonial-slider-container">
-        <button class="slider-button left" onclick="slideTestimonials(-1)">‹</button>
-
-        <div class="testimonial-slider-wrapper">
+<section class="testimonials-section" id="testimonials">
+    <div class="container">
+        <h2 data-aos="fade-left">Ils ont essayé Hearth Blue</h2>
+        <div class="testimonial-slider-wrapper" data-aos="fade-up" data-aos-delay="300">
+            <button class="slider-btn left" aria-label="Précédent" onclick="slideTestimonials(-1)">‹</button>
             <div class="testimonial-slider" id="testimonial-slider">
                 {% for testimonial in testimonials %}
-                    <div class="testimonial-card">
-                        <p>“{{ testimonial }}”</p>
-                    </div>
+                <div class="testimonial-card" style="animation-delay: {{ loop.index0 * 0.15 }}s;">
+                    <p>“{{ testimonial }}”</p>
+                    <span class="author">- Utilisateur {{ loop.index }}</span>
+                </div>
                 {% endfor %}
             </div>
+            <button class="slider-btn right" aria-label="Suivant" onclick="slideTestimonials(1)">›</button>
         </div>
-        <button class="slider-button right" onclick="slideTestimonials(1)">›</button>
-        
     </div>
-    <img src="{{ asset('images/cycling.png') }}" alt="Bannière Hearth Blue" class="ma-classe-css">
-</div>
+</section>
 
+<section class="cta-section" data-aos="zoom-in" data-aos-delay="500">
+    <div class="container cta-container">
+        <h2>Prêt·e à vivre de vraies rencontres ?</h2>
+        <a href="{{ path('app_register') }}" class="btn-primary">Créer un compte gratuitement</a>
+    </div>
+</section>
 
-
-    <section class="call-to-action">
-        <h2>Prêt(e) à commencer ?</h2>
-        <a href="{{ path('app_register') }}" class="cta">Créer un compte</a>
-    </section>
-</div>
+<footer class="footer">
+    <div class="container footer-container">
+        <p>&copy; {{ "now"|date("Y") }} Hearth Blue. Tous droits réservés.</p>
+        <ul class="footer-menu">
+            <li>CGU</a></li>
+            <li>Politique de confidentialité</a></li>
+            <li>Contact</a></li>
+        </ul>
+    </div>
+</footer>
 
 <script src="{{ asset('js/home.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({
+        once: true,
+        easing: 'ease-out-cubic',
+        duration: 1000,
+    });
+</script>
+
 {% endblock %}
