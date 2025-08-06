@@ -11,7 +11,9 @@
 {% block body %}
 <nav class="navbar">
     <div class="container navbar-container">
-        <a href="{{ path('app_home') }}" class="navbar-brand">Hearth Blue</a>
+        <a href="{{ path('app_home') }}"> 
+            <img src="{{ asset('images/HB.png') }}" alt="Hearth Blue Icon" class="logo-icon">
+        </a>
         <ul class="navbar-menu">
             <li><a href="{{ path('app_activity_index') }}">Activités</a></li>
             <li><a href="{{ path('app_register') }}">Inscription</a></li>
@@ -27,13 +29,12 @@
 
 <header class="hero" id="hero">
     <div class="hero-content" data-aos="fade-up" data-aos-duration="1500">
-        <h1>Reconnecte-toi à la vie réelle, avec Hearth Blue</h1>
+        <h1>Reconnecte-toi <br>à la vie réelle, <br> avec Hearth Blue</h1>
         <p>Des rencontres vraies, autour d’activités qui te passionnent.<br>Rejoins une communauté qui bouge près de chez toi.</p>
         <a href="{{ path('app_register') }}" class="btn-primary btn-hero">Commencer maintenant</a>
     </div>
     <div class="hero-visual">
-        <img src="{{ asset('images/hero-illustration.png') }}" alt="Illustration d'activités" />
-        <div class="hero-glow"></div>
+        <img src="{{ asset('images/nuages.png') }}" alt="Illustration d'activités" />
     </div>
 </header>
 
@@ -42,17 +43,17 @@
         <h2 data-aos="fade-right">Pourquoi choisir Hearth Blue ?</h2>
         <div class="features-grid">
             <div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
-                <img src="{{ asset('images/icon-surprise.svg') }}" alt="Surprise Icon">
+                <img src="{{ asset('images/surprise.png') }}" alt="Surprise Icon">
                 <h3>Surprise et diversité</h3>
                 <p>Découvre des activités inédites, chaque jour près de toi.</p>
             </div>
             <div class="feature-card" data-aos="zoom-in" data-aos-delay="400">
-                <img src="{{ asset('images/icon-create.svg') }}" alt="Create Icon">
+                <img src="{{ asset('images/create.png') }}" alt="Create Icon">
                 <h3>Crée ta communauté</h3>
                 <p>Organise tes propres événements et fais grandir ton cercle.</p>
             </div>
             <div class="feature-card" data-aos="zoom-in" data-aos-delay="600">
-                <img src="{{ asset('images/icon-connection.svg') }}" alt="Connection Icon">
+                <img src="{{ asset('images/connection.png') }}" alt="Connection Icon">
                 <h3>Vraies connexions</h3>
                 <p>Rencontre des gens authentiques qui partagent tes passions.</p>
             </div>
