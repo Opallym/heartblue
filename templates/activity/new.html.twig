@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Activity{% endblock %}
+{% block title %}Nouvelle activité{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/activity.css') }}?v={{ 'now'|date('YmdHis') }}">
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Activity</h1>
+<div class="container">
+    <h1>Créer une nouvelle activité</h1>
 
     {{ include('activity/_form.html.twig') }}
 
-    <a href="{{ path('app_activity_index') }}">back to list</a>
+    <a href="{{ path('app_activity_index') }}" class="back-link">← Retour à la liste</a>
+</div>
 {% endblock %}

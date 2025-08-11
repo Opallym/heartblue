@@ -1,25 +1,157 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Profil — Hearth Blue{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}?v={{ 'now'|date('YmdHis') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+{% endblock %}
 
 {% block body %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="{{ path('app_home') }}">Heart Blue</a>
-            <div>
-                {% if app.user %}
-                    <a href="{{ path('app_logout') }}">Déconnexion</a>
-                    <a href="{{ path('app_home_user') }}">Profil</a>
-                {% else %}
-                    <a href="{{ path('app_login') }}" class="me-3">Connexion</a>
-                    <a href="{{ path('app_register') }}">Inscription</a>
-                {% endif %}
+<nav class="navbar">
+    <div class="container navbar-container">
+        <a href="{{ path('app_home') }}">
+            <img src="{{ asset('images/HB.png') }}" alt="Hearth Blue Icon" class="logo-icon">
+        </a>
+        <ul class="navbar-menu">
+            <li><a href="{{ path('app_activity_index') }}">Activités</a></li>
+            {% if app.user %}
+                <li><a href="{{ path('app_home_user') }}">Profil</a></li>
+                <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+            {% else %}
+                <li><a href="{{ path('app_login') }}">Connexion</a></li>
+                <li><a href="{{ path('app_register') }}">Inscription</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<header class="profile-hero" id="top">
+    <div class="container profile-hero-inner" data-aos="fade-up" data-aos-duration="1000">
+        <div class="profile-id">
+            <div class="avatar-wrap">
+                <img src="{{ asset(user.avatarPath|default('images/placeholders/avatar.png')) }}" alt="Avatar" class="avatar">
+               
+                    <label class="btn-outline btn-upload">
+                        <input type="file" name="avatar" accept="image/*" hidden onchange="this.form.submit()">
+                        Changer l’avatar
+                    </label>
+                </form>
+            </div>
+            <div class="identity">
+                <h1>Bienvenue {{ user.username|default(user.email) }} 👋</h1>
+                <p class="muted">Membre depuis 
+                <div class="badges">
+                    {% for badge in user.badges|default([]) %}
+                        <span class="badge" title="{{ badge.description|default('Badge') }}">{{ badge.label|default('Badge') }}</span>
+                    {% else %}
+                        <span class="badge soft">Nouveau·elle</span>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </nav>
 
-    <h1>Bienvenue {{ user.email }} !</h1>
-    <p>Ceci est ta page d'accueil personnel.</p>
+        <div class="quick-actions">
+            <a href="{{ path('app_activity_new') }}" class="btn-primary">+ Créer une activité</a>
+            <a href="{{ path('app_activity_index') }}" class="btn-solid">Découvrir des activités</a>
+            <a href="" class="btn-outline">Éditer le profil</a>
+        </div>
+    </div>
+</header>
 
-    
+<section class="profile-stats" id="stats">
+    <div class="container stats-grid" data-aos="fade-up">
+        <article class="stat-card">
+            <span class="stat-label">Participations</span>
+            <span class="stat-value">{{ stats.joinedCount|default(0) }}</span>
+        </article>
+        <article class="stat-card">
+            <span class="stat-label">Organisées</span>
+            <span class="stat-value">{{ stats.hostedCount|default(0) }}</span>
+        </article>
+        <article class="stat-card">
+            <span class="stat-label">Favoris</span>
+            <span class="stat-value">{{ stats.favoritesCount|default(0) }}</span>
+        </article>
+    </div>
+</section>
+
+<section class="profile-content" id="content">
+    <div class="container content-grid">
+        <div class="panel" data-aos="fade-right" data-aos-delay="100">
+            <div class="panel-header">
+                <h2>Activités à venir</h2>
+                <a class="link" href="">Tout voir</a>
+            </div>
+            <div class="cards">
+                {% for activity in upcoming|default([]) %}
+                    <article class="activity-line">
+                        <img class="thumb" src="{{ asset(activity.coverPath|default('images/placeholders/activity.jpg')) }}" alt="{{ activity.title }}">
+                        <div class="info">
+                            <h3 class="title">{{ activity.title }}</h3>
+                            <p class="meta">📍 {{ activity.city|default('Près de chez toi') }} · 📅 {{ activity.eventDate ? activity.eventDate|date('d M, H:i') : 'Bientôt' }}</p>
+                        </div>
+                        <div class="actions">
+                            <a class="btn-solid" href="{{ path('app_activity_show', {id: activity.id}) }}">Voir</a>
+                            <a class="btn-outline" href="{{ path('app_activity_leave', {id: activity.id}) }}">Quitter</a>
+                        </div>
+                    </article>
+                {% else %}
+                    <p class="empty">Aucune activité planifiée. <a href="{{ path('app_activity_index') }}">Explore les activités</a>.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="panel" data-aos="fade-left" data-aos-delay="150">
+            <div class="panel-header">
+                <h2>Préférences</h2>
+                <a class="link" href="">Modifier</a>
+            </div>
+            <div class="prefs">
+                <div class="pref-line">
+                    <span class="label">Villes favorites</span>
+                    <span class="value">{{ user.preferredCities|default(['Ta ville'])|join(', ') }}</span>
+                </div>
+                <div class="pref-line">
+                    <span class="label">Catégories</span>
+                    <span class="value">{{ user.preferredCategories|default(['Sport','Sorties'])|join(', ') }}</span>
+                </div>
+                <div class="pref-line">
+                    <span class="label">Notifications</span>
+                    <span class="value">{{ user.notificationsEnabled is defined and user.notificationsEnabled ? 'Activées' : 'Désactivées' }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="danger-zone" id="danger">
+    <div class="container" data-aos="zoom-in">
+        <h2>Zone sensible</h2>
+        <p class="muted">Les actions ci-dessous sont irréversibles.</p>
+        <div class="danger-actions">
+            <form action="" method="post" onsubmit="return confirm('Supprimer définitivement ton compte ?');">
+                <button class="btn-danger" type="submit">Supprimer mon compte</button>
+            </form>
+            <a class="btn-outline" href="{{ path('app_logout') }}">Se déconnecter</a>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container footer-container">
+        <p>&copy; {{ "now"|date("Y") }} Hearth Blue. Tous droits réservés.</p>
+        <ul class="footer-menu">
+            <li>CGU</li>
+            <li>Politique de confidentialité</li>
+            <li>Contact</li>
+        </ul>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ once: true, easing: 'ease-out-cubic', duration: 900 });
+</script>
 {% endblock %}

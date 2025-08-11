@@ -1,8 +1,14 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('css/register.css') }}?v={{ 'now'|date('YmdHis') }}">
+{% endblock %}
+
 {% block title %}Register{% endblock %}
 
 {% block body %}
+<div class="hb-register">
     <h1>Register</h1>
 
     {{ form_errors(registrationForm) }}
@@ -16,4 +22,5 @@
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
+</div>
 {% endblock %}
