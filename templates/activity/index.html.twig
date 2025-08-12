@@ -3,48 +3,89 @@
 {% block title %}Activités{% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/activity-index.css') }}?v={{ 'now'|date('YmdHis') }}">
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('css/activity-index.css') }}?v={{ 'now'|date('YmdHis') }}">
 {% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1>Liste des activités</h1>
+<div class="activities-cards">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Date</th>
-                <th>Location</th>
-                <th>Category</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for activity in activities %}
-            <tr>
-                <td data-label="Id">{{ activity.id }}</td>
-                <td data-label="Title">{{ activity.title }}</td>
-                <td data-label="Description">{{ activity.description }}</td>
-                <td data-label="Date">{{ activity.date ? activity.date|date('Y-m-d H:i') : '' }}</td>
-                <td data-label="Location">{{ activity.location }}</td>
-                <td data-label="Category">{{ activity.category }}</td>
-                <td data-label="Actions">
-                    <a href="{{ path('app_activity_show', {'id': activity.id}) }}">show</a>
-                    <a href="{{ path('app_activity_edit', {'id': activity.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">Aucune activité trouvée</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+  {# Barre de recherche #}
+  <form class="ac-search" method="get" action="{{ path('app_activity_index') }}">
+    <input type="text" name="q" value="{{ q|default('') }}" placeholder="Rechercher par nom, description ou lieu…">
+    <select name="category">
+      <option value="">Toutes catégories</option>
+      {% for cat in categories %}
+        <option value="{{ cat }}" {{ (category == cat) ? 'selected' : '' }}>{{ cat }}</option>
+      {% endfor %}
+    </select>
+    <button class="ac-btn-solid" type="submit">Rechercher</button>
+    {# bouton reset pratique #}
+    {% if q or category %}
+      <a class="ac-btn-outline" href="{{ path('app_activity_index') }}">Réinitialiser</a>
+    {% endif %}
+  </form>
 
-    <a href="{{ path('app_activity_new') }}" class="create-btn">+ Créer une nouvelle activité</a>
+  <h1 class="ac-title">Liste des activités</h1>
+
+  <div class="ac-grid">
+    {% for activity in activities %}
+      <article class="ac-card">
+        <div class="ac-thumb">
+          <img src="{{ asset(activity.coverPath|default('images/placeholders/activity.jpg')) }}" alt="{{ activity.title }}">
+          {% if activity.category %}
+            <span class="ac-category">{{ activity.category }}</span>
+          {% endif %}
+        </div>
+
+        <div class="ac-body">
+          <h3 class="ac-name">{{ activity.title }}</h3>
+          <p class="ac-desc">{{ activity.description }}</p>
+
+          <div class="ac-meta">
+            <span class="ac-meta-item">📍 {{ activity.location }}</span>
+            <span class="ac-meta-item">📅 {{ activity.date ? activity.date|date('d M Y, H:i') : 'Bientôt' }}</span>
+          </div>
+
+          <div class="ac-actions">
+            <a class="ac-btn-solid" href="{{ path('app_activity_show', {id: activity.id}) }}">Regarder</a>
+            <a class="ac-btn-outline" href="{{ path('app_activity_edit', {id: activity.id}) }}">Modifier</a>
+          </div>
+        </div>
+      </article>
+    {% else %}
+      <p class="ac-empty">Aucune activité trouvée. <a href="{{ path('app_activity_new') }}">Crée la tienne</a> ✨</p>
+    {% endfor %}
+  </div>
+
+  {# Pagination #}
+  {% if totalPages > 1 %}
+  <nav class="ac-pagination" aria-label="Pagination">
+    {% set prev = page - 1 %}
+    {% set next = page + 1 %}
+    <a class="ac-page {{ page == 1 ? 'is-disabled' : '' }}"
+       href="{{ path('app_activity_index', {page: 1, q: q, category: category}) }}">&laquo;</a>
+    <a class="ac-page {{ page == 1 ? 'is-disabled' : '' }}"
+       href="{{ path('app_activity_index', {page: prev < 1 ? 1 : prev, q: q, category: category}) }}">&lsaquo;</a>
+
+    {% for p in 1..totalPages %}
+      {% if p == page or p in [1,2,totalPages-1,totalPages] or (p >= page-1 and p <= page+1) %}
+        <a class="ac-page {{ p == page ? 'is-active' : '' }}"
+           href="{{ path('app_activity_index', {page: p, q: q, category: category}) }}">{{ p }}</a>
+      {% elseif p == 3 and page > 4 %}
+        <span class="ac-ellipsis">…</span>
+      {% elseif p == totalPages-2 and page < totalPages-3 %}
+        <span class="ac-ellipsis">…</span>
+      {% endif %}
+    {% endfor %}
+
+    <a class="ac-page {{ page == totalPages ? 'is-disabled' : '' }}"
+       href="{{ path('app_activity_index', {page: next > totalPages ? totalPages : next, q: q, category: category}) }}">&rsaquo;</a>
+    <a class="ac-page {{ page == totalPages ? 'is-disabled' : '' }}"
+       href="{{ path('app_activity_index', {page: totalPages, q: q, category: category}) }}">&raquo;</a>
+  </nav>
+  {% endif %}
+
+  <a href="{{ path('app_activity_new') }}" class="ac-create">+ Créer une nouvelle activité</a>
 </div>
 {% endblock %}

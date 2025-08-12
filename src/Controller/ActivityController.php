@@ -16,12 +16,52 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class ActivityController extends AbstractController
 {
     #[Route(name: 'app_activity_index', methods: ['GET'])]
-    public function index(ActivityRepository $activityRepository): Response
-    {
-        return $this->render('activity/index.html.twig', [
-            'activities' => $activityRepository->findAll(),
-        ]);
+public function index(Request $request, ActivityRepository $repo): Response
+{
+    $page = max(1, (int) $request->query->get('page', 1));
+    $limit = 12;
+
+    $q = trim((string) $request->query->get('q', ''));
+    $category = trim((string) $request->query->get('category', ''));
+
+    $qb = $repo->createQueryBuilder('a')
+        ->orderBy('a.date', 'ASC');
+
+    if ($q !== '') {
+        $qb->andWhere('a.title LIKE :q OR a.description LIKE :q OR a.location LIKE :q')
+           ->setParameter('q', '%'.$q.'%');
     }
+    if ($category !== '') {
+        $qb->andWhere('a.category = :cat')->setParameter('cat', $category);
+    }
+
+    $total = (int) (clone $qb)->select('COUNT(a.id)')->getQuery()->getSingleScalarResult();
+
+    $activities = $qb->setFirstResult(($page - 1) * $limit)
+                     ->setMaxResults($limit)
+                     ->getQuery()->getResult();
+
+    $totalPages = (int) ceil($total / $limit);
+
+    // Catégories distinctes pour le select
+    $categoriesRaw = $repo->createQueryBuilder('a')
+        ->select('DISTINCT a.category AS category')
+        ->where('a.category IS NOT NULL')
+        ->orderBy('a.category', 'ASC')
+        ->getQuery()->getScalarResult();
+
+    $categories = array_map(fn($row) => $row['category'], $categoriesRaw);
+
+    return $this->render('activity/index.html.twig', [
+        'activities' => $activities,
+        'page' => $page,
+        'totalPages' => $totalPages,
+        'q' => $q,
+        'category' => $category,
+        'categories' => $categories,
+    ]);
+}
+
 
     #[Route('/new', name: 'app_activity_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response

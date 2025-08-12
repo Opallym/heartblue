@@ -1,117 +1,289 @@
-/* ===== Hearth Blue – Activity Index ===== */
+/* ===== Hearth Blue – Activities Cards (scoped) ===== */
+/* Tout passe via .activities-cards */
 
-/* Container principal de la page */
-
-
-
-
-/* ===== Table ===== */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+.activities-cards {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.table thead {
-  background: linear-gradient(135deg, #00c6ff, #0077ff);
-  color: white;
+/* Barre de recherche */
+.activities-cards .ac-search {
+  display: grid;
+  grid-template-columns: 2fr 1fr auto;
+  gap: .6rem;
+  margin: 1.25rem 0 0;
 }
 
-.table th, .table td {
-  padding: 1rem;
-  text-align: left;
+.activities-cards .ac-search input,
+.activities-cards .ac-search select {
+  padding: .8rem 1rem;
+  border: 2px solid #e0eaff;
+  border-radius: 14px;
+  background: #fdfdff;
+  font-size: 1rem;
+  transition: border-color .2s ease, box-shadow .2s ease;
 }
 
-.table th {
-  font-weight: 600;
-  font-size: 0.95rem;
+.activities-cards .ac-search input:focus,
+.activities-cards .ac-search select:focus {
+  outline: none;
+  border-color: #0077ff;
+  box-shadow: 0 0 0 3px rgba(0, 119, 255, .15);
 }
 
-.table tbody tr {
-  border-bottom: 1px solid #e0eaff;
-  transition: background 0.25s ease;
+.activities-cards .ac-search .ac-btn-solid {
+  background: #0077ff;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: .8rem 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+  box-shadow: 0 8px 16px rgba(0, 119, 255, .18);
 }
 
-.table tbody tr:hover {
-  background: #f0f9ff;
+.activities-cards .ac-search .ac-btn-solid:hover {
+  transform: translateY(-2px);
 }
 
-.table td {
-  font-size: 0.95rem;
-  color: #1a1a1a;
-}
-
-/* ===== Actions ===== */
-.table a {
-  text-decoration: none;
-  font-weight: 600;
-  margin-right: 0.5rem;
-  transition: color 0.25s ease;
-}
-
-.table a[href*="show"] {
+/* Titre */
+.activities-cards .ac-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 1.25rem 0 1rem;
+  text-align: center;
   color: #0077ff;
 }
 
-.table a[href*="show"]:hover {
-  color: #ff6f61;
+/* Grille */
+.activities-cards .ac-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.1rem;
 }
 
-.table a[href*="edit"] {
+/* Carte */
+.activities-cards .ac-card {
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .08);
+  display: flex;
+  flex-direction: column;
+  transition: transform .25s, box-shadow .25s;
+}
+
+.activities-cards .ac-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 34px rgba(0, 0, 0, .10);
+}
+
+/* Vignette */
+.activities-cards .ac-thumb {
+  position: relative;
+  aspect-ratio: 16/9;
+  background: #eef6ff;
+}
+
+.activities-cards .ac-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.activities-cards .ac-category {
+  position: absolute;
+  top: .6rem;
+  left: .6rem;
+  background: #e7f2ff;
+  border: 1px solid #cfe6ff;
+  color: #0a58ca;
+  padding: .35rem .6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: .85rem;
+  box-shadow: 0 4px 10px rgba(10, 88, 202, .15);
+}
+
+/* Corps */
+.activities-cards .ac-body {
+  padding: .9rem .95rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .55rem;
+}
+
+.activities-cards .ac-name {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #1a1a1a;
+}
+
+.activities-cards .ac-desc {
+  margin: 0;
+  color: #334;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Métadonnées */
+.activities-cards .ac-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem .8rem;
   color: #47637f;
+  font-size: .95rem;
+  margin-top: .2rem;
 }
 
-.table a[href*="edit"]:hover {
+.activities-cards .ac-meta-item {
+  white-space: nowrap;
+}
+
+/* Actions */
+.activities-cards .ac-actions {
+  display: flex;
+  gap: .5rem;
+  margin-top: .6rem;
+}
+
+.activities-cards .ac-btn-solid,
+.activities-cards .ac-btn-outline {
+  display: inline-block;
+  font-weight: 700;
+  text-decoration: none;
+  padding: .55rem 1rem;
+  border-radius: 999px;
+  transition: transform .2s, box-shadow .2s, background .2s, color .2s;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .06);
+}
+
+.activities-cards .ac-btn-solid {
+  background: #0077ff;
+  color: #fff;
+}
+
+.activities-cards .ac-btn-solid:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 18px rgba(0, 119, 255, .25);
+}
+
+.activities-cards .ac-btn-outline {
+  background: transparent;
+  color: #0077ff;
+  border: 2px solid #0077ff;
+}
+
+.activities-cards .ac-btn-outline:hover {
+  background: #0077ff;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 18px rgba(0, 119, 255, .18);
+}
+
+/* Pagination */
+.activities-cards .ac-pagination {
+  display: flex;
+  gap: .35rem;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0 1.75rem;
+}
+
+.activities-cards .ac-page,
+.activities-cards .ac-ellipsis {
+  min-width: 38px;
+  height: 38px;
+  padding: 0 .6rem;
+  border-radius: 10px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.activities-cards .ac-page {
+  color: #0077ff;
+  border: 2px solid #cfe6ff;
+  background: #f7fbff;
+}
+
+.activities-cards .ac-page:hover {
+  background: #e7f2ff;
+}
+
+.activities-cards .ac-page.is-active {
+  background: #0077ff;
+  color: #fff;
+  border-color: #0077ff;
+}
+
+.activities-cards .ac-page.is-disabled {
+  pointer-events: none;
+  opacity: .45;
+}
+
+.activities-cards .ac-ellipsis {
+  color: #47637f;
+  border: 2px dashed #e0eaff;
+  background: transparent;
+}
+
+/* État vide + bouton créer */
+.activities-cards .ac-empty {
+  text-align: center;
+  color: #47637f;
+  margin: 1rem 0 0;
+}
+
+.activities-cards .ac-empty a {
+  color: #0077ff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.activities-cards .ac-empty a:hover {
   color: #ff6f61;
 }
 
-/* ===== Bouton Créer ===== */
-.create-btn {
+.activities-cards .ac-create {
   display: inline-block;
-  margin-top: 1.5rem;
+  margin: .5rem 0 2rem;
   background: #ff6f61;
-  color: white;
-  border-radius: 30px;
-  padding: 0.8rem 1.5rem;
-  font-weight: 600;
+  color: #fff;
+  border-radius: 32px;
+  padding: .85rem 1.4rem;
+  font-weight: 700;
   text-decoration: none;
-  box-shadow: 0 6px 10px rgba(255, 111, 97, 0.6);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 8px 16px rgba(255, 111, 97, .45);
+  transition: transform .2s, box-shadow .2s, filter .2s;
 }
 
-.create-btn:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 10px 18px rgba(255, 111, 97, 0.75);
+.activities-cards .ac-create:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 22px rgba(255, 111, 97, .55);
+  filter: brightness(.98);
 }
 
-/* ===== Responsive ===== */
-@media (max-width: 768px) {
-  .table thead {
-    display: none;
+/* Responsive */
+@media (max-width: 720px) {
+  .activities-cards .ac-search {
+    grid-template-columns: 1fr;
   }
-  .table, .table tbody, .table tr, .table td {
-    display: block;
-    width: 100%;
+}
+
+@media (max-width: 520px) {
+  .activities-cards .ac-grid {
+    gap: .9rem;
   }
-  .table tr {
-    margin-bottom: 1rem;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,.05);
-    padding: 1rem;
-  }
-  .table td {
-    padding: 0.5rem 0;
-    border: none;
-  }
-  .table td::before {
-    content: attr(data-label);
-    font-weight: 600;
-    color: #47637f;
-    display: block;
-    margin-bottom: 0.25rem;
+
+  .activities-cards .ac-body {
+    padding: .8rem .85rem 1rem;
   }
 }

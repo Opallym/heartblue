@@ -1,0 +1,40 @@
+<nav class="navbar">
+  <div class="container navbar-container">
+    <a href="{{ path('app_home') }}">
+      <img src="{{ asset('images/HB.png') }}" alt="Hearth Blue Icon" class="logo-icon">
+    </a>
+
+    {% set current = app.request is defined ? (app.request.attributes.get('_route') ?? '') : '' %}
+
+    <ul class="navbar-menu">
+      <li>
+        <a href="{{ path('app_activity_index') }}"
+           class="{{ current starts with 'app_activity' ? 'is-active' : '' }}">
+          Activités
+        </a>
+      </li>
+      {% if not app.user %}
+        <li>
+          <a href="{{ path('app_register') }}"
+             class="{{ current == 'app_register' ? 'is-active' : '' }}">
+            Inscription
+          </a>
+        </li>
+        <li>
+          <a href="{{ path('app_login') }}"
+             class="{{ current == 'app_login' ? 'is-active' : '' }}">
+            Connexion
+          </a>
+        </li>
+      {% else %}
+        <li>
+          <a href="{{ path('app_home_user') }}"
+             class="{{ current == 'app_home_user' ? 'is-active' : '' }}">
+            Profil
+          </a>
+        </li>
+        <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
