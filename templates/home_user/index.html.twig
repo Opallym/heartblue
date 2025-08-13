@@ -9,24 +9,6 @@
 {% endblock %}
 
 {% block body %}
-<nav class="navbar">
-    <div class="container navbar-container">
-        <a href="{{ path('app_home') }}">
-            <img src="{{ asset('images/HB.png') }}" alt="Hearth Blue Icon" class="logo-icon">
-        </a>
-        <ul class="navbar-menu">
-            <li><a href="{{ path('app_activity_index') }}">Activités</a></li>
-            {% if app.user %}
-                <li><a href="{{ path('app_home_user') }}">Profil</a></li>
-                <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
-            {% else %}
-                <li><a href="{{ path('app_login') }}">Connexion</a></li>
-                <li><a href="{{ path('app_register') }}">Inscription</a></li>
-            {% endif %}
-        </ul>
-    </div>
-</nav>
-
 <header class="profile-hero" id="top">
     <div class="container profile-hero-inner" data-aos="fade-up" data-aos-duration="1000">
         <div class="profile-id">
@@ -63,11 +45,11 @@
 <section class="profile-stats" id="stats">
     <div class="container stats-grid" data-aos="fade-up">
         <article class="stat-card">
-            <span class="stat-label">Participations</span>
+            <span class="stat-label">Participations a une activiter</span>
             <span class="stat-value">{{ stats.joinedCount|default(0) }}</span>
         </article>
         <article class="stat-card">
-            <span class="stat-label">Organisées</span>
+            <span class="stat-label">Activiter organisées</span>
             <span class="stat-value">{{ stats.hostedCount|default(0) }}</span>
         </article>
         <article class="stat-card">
@@ -138,18 +120,6 @@
         </div>
     </div>
 </section>
-
-<footer class="footer">
-    <div class="container footer-container">
-        <p>&copy; {{ "now"|date("Y") }} Hearth Blue. Tous droits réservés.</p>
-        <ul class="footer-menu">
-            <li>CGU</li>
-            <li>Politique de confidentialité</li>
-            <li>Contact</li>
-        </ul>
-    </div>
-</footer>
-
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
   AOS.init({ once: true, easing: 'ease-out-cubic', duration: 900 });
