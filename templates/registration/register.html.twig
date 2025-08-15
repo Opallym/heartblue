@@ -10,7 +10,7 @@
 {% block body %}
 <div class="hb-register">
   <div class="card">
-    <h1>Register</h1>
+    <h1>S'inscrire</h1>
 
     {{ form_errors(registrationForm) }}
 
@@ -21,7 +21,6 @@
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
 
-    {# Optionnel : lien vers la page de connexion #}
     <p class="muted">Déjà un compte ? <a href="{{ path('app_login') }}">Se connecter</a></p>
   </div>
 </div>
