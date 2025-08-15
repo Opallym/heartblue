@@ -1,0 +1,62 @@
+.hb-privacy{ background:#f5f8fa; color:#1a1a1a; }
+
+/* Hero aligné à la home (espaces & typographie) */
+.hb-privacy__hero{ padding: 6rem 0 2rem; }
+.hb-privacy__title{ font-size: 2.75rem; font-weight: 700; margin: 0 0 .5rem; color:#0077ff; text-shadow: 0 2px 6px rgb(0 119 255 / 0.12); }
+.hb-privacy__subtitle{ font-size: 1.1rem; color:#444; margin: .25rem 0 .75rem; }
+.hb-privacy__updated{ font-size: .95rem; color:#666; }
+
+/* Chips = comme les filtres de ta home */
+.hb-privacy__chips{ margin: 1rem 0 0; display:flex; flex-wrap:wrap; gap:.5rem; }
+.chip{ background:#f0f9ff; border:1px solid #cce7ff; color:#0077ff; border-radius:20px; padding:.4rem 1rem; font-weight:600; text-decoration:none; transition: background .3s ease, color .3s ease, transform .25s ease; display:inline-flex; align-items:center; }
+.chip:hover{ background:#0077ff; color:#fff; transform: translateY(-2px); }
+
+/* Conteneur principal */
+.hb-privacy__container{ padding-bottom: 4rem; }
+
+/* Carte principale (comme feature/step cards) */
+.hb-card{ background:#fff; border-radius: 20px; box-shadow: 0 10px 20px rgb(0 119 255 / 0.10); padding: 1.25rem; }
+
+/* Sections */
+.hb-section{ padding: 1.25rem; border-bottom: 1px dashed #e6eef8; }
+.hb-section:last-child{ border-bottom:none; }
+.hb-section h2{ font-size: 1.5rem; color:#0077ff; margin: 0 0 .75rem; }
+
+/* Infobar & badges, style "outline" bleu */
+.hb-infobar{ display:flex; flex-wrap:wrap; gap:.5rem .75rem; align-items:center; border:2px solid #cce7ff; background:#f0f9ff; border-radius: 20px; padding:.6rem .8rem; }
+.hb-badge{ background:#0077ff; color:#fff; font-weight:700; border-radius: 20px; padding:.25rem .6rem; font-size:.9rem; }
+.sep{ color:#777; }
+
+/* Listes à puces bleues */
+.hb-list{ list-style:none; padding:0; margin:.5rem 0 0; display:grid; gap:.6rem; }
+.hb-list .dot{ width:9px; height:9px; border-radius:50%; display:inline-block; margin-right:.5rem; background:#0077ff; box-shadow: 0 0 0 3px rgb(0 119 255 / 0.10); }
+
+/* Grid & mini-cards cohérentes */
+.hb-grid-2{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .75rem; }
+.hb-pill{ border:2px solid #cce7ff; background:#fff; color:#0077ff; padding:.6rem .9rem; border-radius:999px; text-align:center; font-weight:700; }
+.hb-cards{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
+.hb-mini{ background:#fff; border-radius: 20px; border:2px solid #cce7ff; padding: 1rem; transition: transform .25s ease, box-shadow .25s ease; }
+.hb-mini:hover{ transform: translateY(-6px); box-shadow: 0 15px 35px rgb(0 119 255 / 0.20); }
+.hb-mini h3{ margin:0 0 .25rem; color:#0077ff; font-size:1.15rem; }
+.hb-mini p{ margin:0; color:#444; }
+
+/* Accordéon */
+.hb-accordion{ border:2px solid #cce7ff; border-radius: 15px; background:#fff; padding:.75rem .9rem; }
+.hb-accordion>summary{ cursor:pointer; font-weight:700; color:#0077ff; }
+.hb-accordion>summary::-webkit-details-marker{ display:none; }
+
+/* Timeline claire */
+.hb-timeline{ position:relative; margin-top:.25rem; padding-left:18px; }
+.hb-timeline:before{ content:""; position:absolute; left:8px; top:6px; bottom:6px; width:2px; background:#cce7ff; }
+.hb-tl-item{ position:relative; padding:.5rem 0 .5rem .25rem; }
+.hb-tl-dot{ position:absolute; left:-2px; top:10px; width:10px; height:10px; border-radius:50%; background:#0077ff; box-shadow:0 0 0 3px rgb(0 119 255 / 0.15); }
+
+/* CTA : s’appuie sur .btn-primary existante (corail) */
+.hb-privacy__footer{ display:flex; justify-content:flex-end; padding:1rem; }
+.hb-cta{ /* pas de couleurs ici, la .btn-primary de la home gère */ }
+
+/* Responsive */
+@media (max-width: 960px){
+  .hb-grid-2{ grid-template-columns: 1fr; }
+  .hb-cards{ grid-template-columns: 1fr; }
+}

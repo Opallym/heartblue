@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Politique de confidentialité | Hearth Blue{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('css/privacy_policy.css') }}">
+{% endblock %}
+
+{% block body %}
+<section class="hb-privacy">
+  <div class="hb-privacy__hero">
+    <div class="container">
+      <h1 class="hb-privacy__title">Politique de confidentialité</h1>
+      <p class="hb-privacy__subtitle">Transparence sur les données que nous collectons et comment nous les utilisons.</p>
+      <p class="hb-privacy__updated">Mise à jour : <time datetime="2025-08-15">15 août 2025</time></p>
+      <nav class="hb-privacy__chips" aria-label="Sommaire">
+        <a href="#intro" class="chip">Intro</a>
+        <a href="#donnees-collectees" class="chip">Données</a>
+        <a href="#bases-legales" class="chip">Bases</a>
+        <a href="#finalites" class="chip">Finalités</a>
+        <a href="#cookies" class="chip">Cookies</a>
+        <a href="#partage" class="chip">Partage</a>
+        <a href="#duree" class="chip">Durées</a>
+        <a href="#securite" class="chip">Sécurité</a>
+        <a href="#droits" class="chip">Droits</a>
+        <a href="#contact" class="chip">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container hb-privacy__container">
+    <article class="hb-card">
+      <section id="intro" class="hb-section">
+        <h2>Introduction</h2>
+        <p>Bienvenue sur <strong>Hearth Blue</strong>. Cette page décrit les données que nous collectons, les finalités, les bases légales et la manière d’exercer tes droits.</p>
+        <div class="hb-infobar">
+          <span class="hb-badge">Responsable</span>
+          <span>{{ app_name|default('Hearth Blue') }}</span>
+          <span class="sep">•</span>
+          <span class="hb-badge">Contact</span>
+          <a href="mailto:{{ contact_email|default('contact@hearthblue.fr') }}">{{ contact_email|default('contact@hearthblue.fr') }}</a>
+        </div>
+      </section>
+
+      <section id="donnees-collectees" class="hb-section">
+        <h2>Données collectées</h2>
+        <ul class="hb-list">
+          <li><span class="dot"></span><strong>Compte</strong> : pseudo, email, mot de passe (haché), avatar (optionnel).</li>
+          <li><span class="dot"></span><strong>Activités</strong> : centres d’intérêt, activités likées/inscrites, messages publics.</li>
+          <li><span class="dot"></span><strong>Technique</strong> : IP, logs, pages vues, identifiant de session.</li>
+          <li><span class="dot"></span><strong>Cookies</strong> : préférences, auth, analytics.</li>
+          <li><span class="dot"></span><strong>Support</strong> : contenu de tes demandes.</li>
+        </ul>
+      </section>
+
+      <section id="bases-legales" class="hb-section">
+        <h2>Bases légales (RGPD)</h2>
+        <div class="hb-grid-2">
+          <div class="hb-pill">Exécution du contrat</div>
+          <div class="hb-pill">Intérêt légitime</div>
+          <div class="hb-pill">Consentement</div>
+          <div class="hb-pill">Obligation légale</div>
+        </div>
+      </section>
+
+      <section id="finalites" class="hb-section">
+        <h2>Finalités</h2>
+        <div class="hb-cards">
+          <div class="hb-mini">
+            <h3>Expérience personnalisée</h3>
+            <p>Recommandations d’activités adaptées.</p>
+          </div>
+          <div class="hb-mini">
+            <h3>Sécurité</h3>
+            <p>Prévention de la fraude, intégrité de la plateforme.</p>
+          </div>
+          <div class="hb-mini">
+            <h3>Mesure d’audience</h3>
+            <p>Améliorer Hearth Blue grâce aux statistiques.</p>
+          </div>
+          <div class="hb-mini">
+            <h3>Communication</h3>
+            <p>Emails de service, réponses à tes demandes.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="cookies" class="hb-section">
+        <h2>Cookies & traceurs</h2>
+        <details class="hb-accordion" open>
+          <summary>Catégories</summary>
+          <ul class="hb-list">
+            <li><span class="dot"></span>Essentiels : session, sécurité.</li>
+            <li><span class="dot"></span>Préférences : langue, affichage.</li>
+            <li><span class="dot"></span>Mesure d’audience (soumis à consentement si non exemptés).</li>
+            <li><span class="dot"></span>Réseaux sociaux (soumis à consentement).</li>
+          </ul>
+        </details>
+      </section>
+
+      <section id="partage" class="hb-section">
+        <h2>Partage des données</h2>
+        <p>Pas de vente de données. Partage possible avec :</p>
+        <ul class="hb-list">
+          <li><span class="dot"></span>Fournisseurs techniques (hébergement, email, analytics).</li>
+          <li><span class="dot"></span>Autorités si la loi l’exige.</li>
+          <li><span class="dot"></span>Autres utilisateurs pour les contenus publics.</li>
+        </ul>
+      </section>
+
+      <section id="duree" class="hb-section">
+        <h2>Durées de conservation</h2>
+        <div class="hb-timeline">
+          <div class="hb-tl-item"><span class="hb-tl-dot"></span><div><strong>Compte</strong> : tant que le compte est actif (suppression à ta demande).</div></div>
+          <div class="hb-tl-item"><span class="hb-tl-dot"></span><div><strong>Logs</strong> : jusqu’à 12 mois.</div></div>
+          <div class="hb-tl-item"><span class="hb-tl-dot"></span><div><strong>Cookies</strong> : 6 à 13 mois selon la catégorie.</div></div>
+          <div class="hb-tl-item"><span class="hb-tl-dot"></span><div><strong>Support</strong> : 24 mois après la dernière interaction.</div></div>
+        </div>
+      </section>
+
+      <section id="securite" class="hb-section">
+        <h2>Sécurité</h2>
+        <p>HTTPS, hachage des mots de passe, contrôle d’accès, sauvegardes. Utilise un mot de passe robuste et unique.</p>
+      </section>
+
+      <section id="droits" class="hb-section">
+        <h2>Tes droits</h2>
+        <ul class="hb-list">
+          <li><span class="dot"></span>Accès, rectification, effacement, limitation, opposition, portabilité.</li>
+          <li><span class="dot"></span>Retrait du consentement (si applicable) à tout moment.</li>
+          <li><span class="dot"></span>Réclamation : <a href="https://www.cnil.fr/" target="_blank" rel="noopener">CNIL</a>.</li>
+        </ul>
+        <p>Écris‑nous à <a href="mailto:{{ dpo_email|default('privacy@hearthblue.fr') }}">{{ dpo_email|default('privacy@hearthblue.fr') }}</a>.</p>
+      </section>
+
+      <section id="contact" class="hb-section">
+        <h2>Contact</h2>
+        <p><strong>{{ app_name|default('Hearth Blue') }}</strong> — <a href="mailto:{{ contact_email|default('contact@hearthblue.fr') }}">{{ contact_email|default('contact@hearthblue.fr') }}</a></p>
+      </section>
+
+      <footer class="hb-privacy__footer">
+        <a class="btn btn-primary hb-cta" href="{{ path('app_home') }}">Retour à l’accueil</a>
+      </footer>
+    </article>
+  </div>
+</section>
+{% endblock %}
