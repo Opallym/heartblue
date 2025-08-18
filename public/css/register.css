@@ -88,6 +88,7 @@
     height: 18px;
     vertical-align: middle;
     margin-right: 0.5rem;
+    
 }
 .hb-register .checkbox,
 .hb-register .form-check {
@@ -119,7 +120,6 @@
     box-shadow: 0 12px 22px rgba(255,111,97,0.6);
 }
 
-/* Messages d’erreur Symfony */
 .hb-register .form-error-message,
 .hb-register .form-errors,
 .hb-register .form-error {
@@ -132,7 +132,7 @@
     font-size: 0.9rem;
 }
 
-/* Lien secondaire (ex: vers connexion) */
+
 .hb-register .muted {
     margin-top: 1rem;
     text-align: center;

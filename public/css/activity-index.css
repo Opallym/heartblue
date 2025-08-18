@@ -1,10 +1,8 @@
-/* ===== Hearth Blue – Activities Cards (scoped) ===== */
-/* Tout passe via .activities-cards */
-
 .activities-cards {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
+  margin-top: 150px; 
 }
 
 /* Barre de recherche */

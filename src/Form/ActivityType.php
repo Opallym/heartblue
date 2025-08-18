@@ -19,10 +19,7 @@ class ActivityType extends AbstractType
             ->add('date')
             ->add('location')
             ->add('category')
-            ->add('createdBy', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
+           
         ;
     }
 

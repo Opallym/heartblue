@@ -62,7 +62,14 @@ body, html {
     color: #0077ff;
 }
 
-/* Hero */
+.image-container {
+  display: flex;
+  justify-content: center;  
+  align-items: center;      
+  height: auto; 
+  margin-bottom: 30px;           
+}
+
 
 .hero {
     min-height: 100vh;
@@ -78,6 +85,7 @@ body, html {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    margin-top: 100px;
 }
 
 .hero-content {

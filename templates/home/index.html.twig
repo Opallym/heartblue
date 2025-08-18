@@ -1,176 +1,187 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hearth Blue - Une expérience unique{% endblock %}
+{% block title %}Hearth Blue - Une expérience unique
+{% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}?v={{ "now"|date("YmdHis") }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/home.css') }}?v={{ "now"|date("YmdHis") }}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
 {% endblock %}
 
 {% block body %}
-<header class="hero" id="hero">
-    <div class="hero-content" data-aos="fade-up" data-aos-duration="1500">
-        <h1>Reconnecte-toi <br>à la vie réelle, <br> avec Hearth Blue</h1>
-        <p>Des rencontres vraies, autour d’activités qui te passionnent.<br>Rejoins une communauté qui bouge près de chez toi.</p>
-        <a href="{{ path('app_register') }}" class="btn-primary btn-hero">Commencer maintenant</a>
-    </div>
-    <div class="hero-visual">
-        <img src="{{ asset('images/logo.png') }}" alt="Illustration d'activités" />
-    </div>
-</header>
+	<header class="hero" id="hero">
+		<div class="hero-content" data-aos="fade-up" data-aos-duration="1500">
+			<h1>Reconnecte-toi
+				<br>à la vie réelle,
+				<br>
+				avec Hearth Blue</h1>
+			<p>Des rencontres vraies, autour d’activités qui te passionnent.<br>Rejoins une communauté qui bouge près de chez toi.</p>
+			<a href="{{ path('app_register') }}" class="btn-primary btn-hero">Commencer maintenant</a>
+		</div>
+		<div class="hero-visual">
+			<img src="{{ asset('images/logo.png') }}" alt="Illustration d'activités"/>
+		</div>
+	</header>
 
-<section class="features-section" id="features">
-    <div class="container">
-        <h2 data-aos="fade-right">Pourquoi choisir Hearth Blue ?</h2>
-        <div class="features-grid">
-            <div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
-                <img src="{{ asset('images/surprise.png') }}" alt="Surprise Icon">
-                <h3>Surprise et diversité</h3>
-                <p>Découvre des activités inédites, chaque jour près de toi.</p>
-            </div>
-            <div class="feature-card" data-aos="zoom-in" data-aos-delay="400">
-                <img src="{{ asset('images/create.png') }}" alt="Create Icon">
-                <h3>Crée ta communauté</h3>
-                <p>Organise tes propres événements et fais grandir ton cercle.</p>
-            </div>
-            <div class="feature-card" data-aos="zoom-in" data-aos-delay="600">
-                <img src="{{ asset('images/connection.png') }}" alt="Connection Icon">
-                <h3>Vraies connexions</h3>
-                <p>Rencontre des gens authentiques qui partagent tes passions.</p>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="how-section" id="how">
-  <div class="container" data-aos="fade-up">
-    <h2 style="text-align:center; margin-bottom:1rem">Comment ça marche</h2>
-    <div class="steps">
-      <div class="step" data-aos="zoom-in" data-aos-delay="50">
-        <div class="step-id">Étape 1</div>
-        <h3>Inscris-toi</h3>
-        <p>Crée ton profil en 1 minute.</p>
-      </div>
-      <div class="step" data-aos="zoom-in" data-aos-delay="150">
-        <div class="step-id">Étape 2</div>
-        <h3>Choisis ou crée</h3>
-        <p>Rejoins une activité ou propose la tienne.</p>
-      </div>
-      <div class="step" data-aos="zoom-in" data-aos-delay="250">
-        <div class="step-id">Étape 3</div>
-        <h3>Rencontre & partage</h3>
-        <p>Vive des moments conviviaux près de chez toi.</p>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="activities-section" id="activities">
-  <div class="container" data-aos="fade-up">
-    <div class="activities-header">
-      <div>
-        <h2>Populaires & à venir</h2>
-        <p style="margin:.35rem 0 0;color:#47637f">Explore, filtre et rejoins une activité près de chez toi.</p>
-      </div>
-      <div class="search-bar">
-        <input type="text" placeholder="Rechercher une activité (ex. yoga, café, randonnée)" aria-label="Rechercher une activité">
-        <a href="{{ path('app_activity_index') }}" class="btn-solid">Tout voir</a>
-      </div>
-    </div>
+	<section class="features-section" id="features">
+		<div class="container">
+			<h2 data-aos="fade-right">Pourquoi choisir Hearth Blue ?</h2>
+			<div class="features-grid">
+				<div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
+					<img src="{{ asset('images/surprise.png') }}" alt="Surprise Icon">
+					<h3>Surprise et diversité</h3>
+					<p>Découvre des activités inédites, chaque jour près de toi.</p>
+				</div>
+				<div class="feature-card" data-aos="zoom-in" data-aos-delay="400">
+					<img src="{{ asset('images/create.png') }}" alt="Create Icon">
+					<h3>Crée ta communauté</h3>
+					<p>Organise tes propres événements et fais grandir ton cercle.</p>
+				</div>
+				<div class="feature-card" data-aos="zoom-in" data-aos-delay="600">
+					<img src="{{ asset('images/connection.png') }}" alt="Connection Icon">
+					<h3>Vraies connexions</h3>
+					<p>Rencontre des gens authentiques qui partagent tes passions.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="how-section" id="how">
+		<div class="container" data-aos="fade-up">
+			<h2 style="text-align:center; margin-bottom:1rem">Comment ça marche</h2>
+			<div class="steps">
+				<div class="step" data-aos="zoom-in" data-aos-delay="50">
+					<div class="step-id">Étape 1</div>
+					<h3>Inscris-toi</h3>
+					<p>Crée ton profil en 1 minute.</p>
+				</div>
+				<div class="step" data-aos="zoom-in" data-aos-delay="150">
+					<div class="step-id">Étape 2</div>
+					<h3>Choisis ou crée</h3>
+					<p>Rejoins une activité ou propose la tienne.</p>
+				</div>
+				<div class="step" data-aos="zoom-in" data-aos-delay="250">
+					<div class="step-id">Étape 3</div>
+					<h3>Rencontre & partage</h3>
+					<p>Vive des moments conviviaux près de chez toi.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="activities-section" id="activities">
+		<div class="container" data-aos="fade-up">
+			<div class="activities-header">
+				<div>
+					<h2>Populaires & à venir</h2>
+					<p style="margin:.35rem 0 0;color:#47637f">Explore, filtre et rejoins une activité près de chez toi.</p>
+				</div>
+				<div class="search-bar">
+					<input type="text" placeholder="Rechercher une activité (ex. yoga, café, randonnée)" aria-label="Rechercher une activité">
+					<a href="{{ path('app_activity_index') }}" class="btn-solid">Tout voir</a>
+				</div>
+			</div>
 
-    <div class="filters" style="margin-top: .75rem;" aria-label="Filtres catégories">
-      {% set categories = ['Sport','Sorties','Culture','Bien-être','Famille'] %}
-      <button class="filter-chip active" type="button">Tout</button>
-      {% for cat in categories %}
-        <button class="filter-chip" type="button">{{ cat }}</button>
-      {% endfor %}
-    </div>
+			<div class="filters" style="margin-top: .75rem;" aria-label="Filtres catégories">
+				{% set categories = ['Sport','Sorties','Culture','Bien-être','Famille'] %}
+				<button class="filter-chip active" type="button">Tout</button>
+				{% for cat in categories %}
+					<button class="filter-chip" type="button">{{ cat }}</button>
+				{% endfor %}
+			</div>
 
-    <div class="activities-grid">
-      {% for activity in activities|default([]) %}
-        <article class="activity-card" data-aos="zoom-in" data-aos-delay="{{ loop.index0 * 50 }}">
-          <img class="activity-thumb" src="{{ asset(activity.coverPath ?? 'images/placeholders/activity.jpg') }}" alt="{{ activity.title }}">
-          <div class="activity-content">
-            <div class="activity-title">{{ activity.title }}</div>
-            <div class="activity-meta">
-              <span>📍 {{ activity.city ?? 'Près de chez toi' }}</span>
-              <span>📅 {{ activity.eventDate ? activity.eventDate|date('d M, H:i') : 'Bientôt' }}</span>
-              <span>👥 {{ activity.attendeesCount ?? 0 }}</span>
-            </div>
-            <div class="card-actions">
-              <a class="btn-solid" href="{{ path('app_activity_show', {id: activity.id}) }}">Voir</a>
-              <a class="btn-outline" href="{{ path('app_activity_join', {id: activity.id}) }}">Participer</a>
-            </div>
-          </div>
-        </article>
-      {% else %}
-        {# Placeholder si pas d'activités #}
-        {% for i in 1..6 %}
-          <article class="activity-card" data-aos="zoom-in" data-aos-delay="{{ i * 50 }}">
-            <img class="activity-thumb" src="{{ asset('images/placeholders/activity.jpg') }}" alt="Activité">
-            <div class="activity-content">
-              <div class="activity-title">Exemple d’activité</div>
-              <div class="activity-meta"><span>📍 Ta ville</span><span>📅 Sam. 12:00</span><span>👥 8</span></div>
-              <div class="card-actions">
-                <a class="btn-solid" href="{{ path('app_activity_index') }}">Voir</a>
-                <a class="btn-outline" href="{{ path('app_register') }}">Participer</a>
-              </div>
-            </div>
-          </article>
-        {% endfor %}
-      {% endfor %}
-    </div>
-  </div>
-</section>
-<section class="testimonials-section" id="testimonials">
-    <div class="container">
-        <h2 data-aos="fade-left">Ils ont essayé Hearth Blue</h2>
-        <img src="{{ asset('images/groupe.png') }}" alt="groupe img">
-        <div class="testimonial-slider-wrapper" data-aos="fade-up" data-aos-delay="300">
-            <button class="slider-btn left" aria-label="Précédent" onclick="slideTestimonials(-1)">‹</button>
-            <div class="testimonial-slider" id="testimonial-slider">
-                {% for testimonial in testimonials %}
-                <div class="testimonial-card" style="animation-delay: {{ loop.index0 * 0.15 }}s;">
-                    <p>“{{ testimonial }}”</p>
-                    <span class="author">- Utilisateur {{ loop.index }}</span>
-                </div>
-                {% endfor %}
-            </div>
-            <button class="slider-btn right" aria-label="Suivant" onclick="slideTestimonials(1)">›</button>
-        </div>
-    </div>
-</section>
-<section class="faq" id="faq">
-  <div class="container" data-aos="fade-up">
-    <h2>Questions fréquentes</h2>
-    <details class="faq-item" open>
-      <summary>Hearth Blue est-il gratuit ?</summary>
-      <p>Oui, l’inscription et la plupart des fonctionnalités sont gratuites.</p>
-    </details>
-    <details class="faq-item">
-      <summary>Comment créer une activité ?</summary>
-      <p>Depuis la page Activités, clique sur « Créer » et remplis le formulaire.</p>
-    </details>
-    <details class="faq-item">
-      <summary>Est-ce sécurisé ?</summary>
-      <p>Nous modérons les contenus et proposons des signalements en 1 clic.</p>
-    </details>
-  </div>
-</section>
-<section class="cta-section" data-aos="zoom-in" data-aos-delay="500">
-    <div class="container cta-container">
-        <h2>Prêt·e à vivre de vraies rencontres ?</h2>
-        <a href="{{ path('app_register') }}" class="btn-primary">Créer un compte gratuitement</a>
-    </div>
-</section>
+			<div class="activities-grid">
+				{% for activity in activities|default([]) %}
+					<article class="activity-card" data-aos="zoom-in" data-aos-delay="{{ loop.index0 * 50 }}">
+						<img class="activity-thumb" src="{{ asset(activity.coverPath ?? 'images/placeholders/activity.jpg') }}" alt="{{ activity.title }}">
+						<div class="activity-content">
+							<div class="activity-title">{{ activity.title }}</div>
+							<div class="activity-meta">
+								<span>📍
+									{{ activity.city ?? 'Près de chez toi' }}</span>
+								<span>📅
+									{{ activity.eventDate ? activity.eventDate|date('d M, H:i') : 'Bientôt' }}</span>
+								<span>👥
+									{{ activity.attendeesCount ?? 0 }}</span>
+							</div>
+							<div class="card-actions">
+								<a class="btn-solid" href="{{ path('app_activity_show', {id: activity.id}) }}">Voir</a>
+								<a class="btn-outline" href="{{ path('app_activity_join', {id: activity.id}) }}">Participer</a>
+							</div>
+						</div>
+					</article>
+				{% else %}
+					{# Placeholder si pas d'activités #}
+					{% for i in 1..6 %}
+						<article class="activity-card" data-aos="zoom-in" data-aos-delay="{{ i * 50 }}">
+							<img class="activity-thumb" src="{{ asset('images/placeholders/activity.jpg') }}" alt="Activité">
+							<div class="activity-content">
+								<div class="activity-title">Exemple d’activité</div>
+								<div class="activity-meta">
+									<span>📍 Ta ville</span>
+									<span>📅 Sam. 12:00</span>
+									<span>👥 8</span>
+								</div>
+								<div class="card-actions">
+									<a class="btn-solid" href="{{ path('app_activity_index') }}">Voir</a>
+									<a class="btn-outline" href="{{ path('app_register') }}">Participer</a>
+								</div>
+							</div>
+						</article>
+					{% endfor %}
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	<section class="testimonials-section" id="testimonials">
+		<div class="container">
+			<h2 data-aos="fade-left">Ils ont essayé Hearth Blue</h2>
+			<div class="image-container">
+				<img src="{{ asset('images/groupe.png') }}" alt="groupe img">
+			</div>
 
-<script src="{{ asset('js/home.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script>
-    AOS.init({
-        once: true,
-        easing: 'ease-out-cubic',
-        duration: 1000,
-    });
-</script>
+			<div class="testimonial-slider-wrapper" data-aos="fade-up" data-aos-delay="300">
+				<button class="slider-btn left" aria-label="Précédent" onclick="slideTestimonials(-1)">‹</button>
+				<div class="testimonial-slider" id="testimonial-slider">
+					{% for testimonial in testimonials %}
+						<div class="testimonial-card" style="animation-delay: {{ loop.index0 * 0.15 }}s;">
+							<p>“{{ testimonial }}”</p>
+							<span class="author">- Utilisateur
+								{{ loop.index }}</span>
+						</div>
+					{% endfor %}
+				</div>
+				<button class="slider-btn right" aria-label="Suivant" onclick="slideTestimonials(1)">›</button>
+			</div>
+		</div>
+	</section>
+	<section class="faq" id="faq">
+		<div class="container" data-aos="fade-up">
+			<h2>Questions fréquentes</h2>
+			<details class="faq-item" open>
+				<summary>Hearth Blue est-il gratuit ?</summary>
+				<p>Oui, l’inscription et la plupart des fonctionnalités sont gratuites.</p>
+			</details>
+			<details class="faq-item">
+				<summary>Comment créer une activité ?</summary>
+				<p>Depuis la page Activités, clique sur « Créer » et remplis le formulaire.</p>
+			</details>
+			<details class="faq-item">
+				<summary>Est-ce sécurisé ?</summary>
+				<p>Nous modérons les contenus et proposons des signalements en 1 clic.</p>
+			</details>
+		</div>
+	</section>
+	<section class="cta-section" data-aos="zoom-in" data-aos-delay="500">
+		<div class="container cta-container">
+			<h2>Prêt·e à vivre de vraies rencontres ?</h2>
+			<a href="{{ path('app_register') }}" class="btn-primary">Créer un compte gratuitement</a>
+		</div>
+	</section>
+
+	<script src="{{ asset('js/home.js') }}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+	<script>
+		AOS.init({once: true, easing: 'ease-out-cubic', duration: 1000});
+	</script>
 
 {% endblock %}

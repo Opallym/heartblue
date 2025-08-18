@@ -24,8 +24,6 @@ document.addEventListener("DOMContentLoaded", function() {
     AOS.init();
 });
 </script>
-
-
 	<body>
 		{% block header %}
 			{% include 'partials/navbar.html.twig' %}
@@ -46,5 +44,5 @@ document.addEventListener("DOMContentLoaded", function() {
 	</body>
 	{% block footer %}
      		{% include 'partials/footer.html.twig' %}
-    	{% endblock %}
+    {% endblock %}
 </html>

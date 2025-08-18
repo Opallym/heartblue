@@ -8,9 +8,8 @@
 {% endblock %}
 
 {% block body %}
-<div class="activities-cards">
 
-  {# Barre de recherche #}
+<div class="activities-cards">
   <form class="ac-search" method="get" action="{{ path('app_activity_index') }}">
     <input type="text" name="q" value="{{ q|default('') }}" placeholder="Rechercher par nom, description ou lieu…">
     <select name="category">

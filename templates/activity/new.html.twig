@@ -8,11 +8,32 @@
 {% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1>Créer une nouvelle activité</h1>
+<div class="activity-page">
 
-    {{ include('activity/_form.html.twig') }}
+    <div class="hero-section">
+        <h1>Créer une nouvelle activité</h1>
+        <p>Transformez vos idées en moments inoubliables !</p>
+        <div class="hero-animation"></div>
+    </div>
 
-    <a href="{{ path('app_activity_index') }}" class="back-link">← Retour à la liste</a>
+    <div class="container">
+        <div class="activity-form-wrapper">
+            {{ include('activity/_form.html.twig') }}
+        </div>
+
+        <a href="{{ path('app_activity_index') }}" class="back-link">← Retour à la liste</a>
+    </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+// Ajout d'icônes dynamiques dans les champs
+document.querySelectorAll('.activity-form input, .activity-form textarea, .activity-form select').forEach((el) => {
+    const icon = document.createElement('i');
+    icon.classList.add('fa', 'fa-pencil-alt'); 
+    el.parentNode.classList.add('form-group');
+    el.parentNode.appendChild(icon);
+});
+</script>
 {% endblock %}
