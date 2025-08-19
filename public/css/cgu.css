@@ -1,0 +1,153 @@
+/* =========================
+   Reset / Base
+   ========================= */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* =========================
+   Hero
+   ========================= */
+.hb-cgu__hero {
+    background: linear-gradient(135deg, #4A90E2, #50E3C2);
+    color: #fff;
+    padding: 60px 0 40px 0;
+    text-align: center;
+    padding-top: 100px;
+}
+
+.hb-cgu__title {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+}
+
+.hb-cgu__subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.hb-cgu__updated {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+.hb-cgu__chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.hb-cgu__chips .chip {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.hb-cgu__chips .chip:hover {
+    background-color: rgba(255, 255, 255, 0.35);
+}
+
+/* =========================
+   Cards / Article
+   ========================= */
+.hb-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+    padding: 30px;
+    margin: 40px 0;
+}
+
+/* =========================
+   Sections
+   ========================= */
+.hb-section {
+    margin-bottom: 40px;
+}
+
+.hb-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #4A90E2;
+}
+
+.hb-section p {
+    margin-bottom: 15px;
+}
+
+.hb-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.hb-list li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.hb-list li .dot {
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    background-color: #4A90E2;
+    border-radius: 50%;
+}
+
+.hb-cgu__footer {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.hb-cgu__footer .hb-cta {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #4A90E2;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 30px;
+    transition: background-color 0.3s;
+}
+
+.hb-cgu__footer .hb-cta:hover {
+    background-color: #357ABD;
+}
+
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 768px) {
+    .hb-cgu__hero {
+        padding: 40px 0 20px 0;
+    }
+
+    .hb-cgu__title {
+        font-size: 2rem;
+    }
+
+    .hb-cgu__subtitle {
+        font-size: 1rem;
+    }
+}

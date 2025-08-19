@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/cgu.css') }}">
+{% endblock %}
+
+{% block title %}CGU - Hearth Blue{% endblock %}
+
+{% block body %}
+<div class="hb-cgu__hero">
+    <div class="container">
+        <h1 class="hb-cgu__title">Conditions Générales d'Utilisation</h1>
+        <p class="hb-cgu__subtitle">Bienvenue sur Hearth Blue. Veuillez lire attentivement nos conditions d'utilisation avant d'accéder au site.</p>
+        <p class="hb-cgu__updated">Dernière mise à jour : 18 août 2025</p>
+
+        <div class="hb-cgu__chips">
+            <a href="#introduction" class="chip">Introduction</a>
+            <a href="#acces" class="chip">Accès au site</a>
+            <a href="#responsabilites" class="chip">Responsabilités</a>
+            <a href="#contenus" class="chip">Contenus utilisateurs</a>
+            <a href="#propriete" class="chip">Propriété intellectuelle</a>
+            <a href="#donnees" class="chip">Données personnelles</a>
+            <a href="#modification" class="chip">Modification des CGU</a>
+        </div>
+    </div>
+</div>
+
+<div class="container hb-card">
+    <section id="introduction" class="hb-section">
+        <h2>Introduction</h2>
+        <p>Ces conditions générales régissent l'accès et l'utilisation du site Hearth Blue. En utilisant notre site, vous acceptez ces conditions.</p>
+    </section>
+
+    <section id="acces" class="hb-section">
+        <h2>Accès au site</h2>
+        <p>L'accès au site est gratuit, sous réserve de disponibilité. Hearth Blue peut suspendre l'accès pour maintenance ou raisons techniques.</p>
+    </section>
+
+    <section id="responsabilites" class="hb-section">
+        <h2>Responsabilités</h2>
+        <ul class="hb-list">
+            <li><span class="dot"></span>Hearth Blue ne garantit pas la disponibilité continue du site.</li>
+            <li><span class="dot"></span>Nous ne sommes pas responsables des dommages directs ou indirects liés à l'utilisation du site.</li>
+        </ul>
+    </section>
+
+    <section id="contenus" class="hb-section">
+        <h2>Contenus utilisateurs</h2>
+        <p>Les utilisateurs peuvent publier des activités et commentaires. Vous restez responsable de vos publications et vous devez respecter la législation en vigueur.</p>
+    </section>
+
+    <section id="propriete" class="hb-section">
+        <h2>Propriété intellectuelle</h2>
+        <p>Tout contenu du site (textes, images, logos) est protégé par des droits de propriété intellectuelle. Toute reproduction est interdite sans autorisation.</p>
+    </section>
+
+    <section id="donnees" class="hb-section">
+        <h2>Données personnelles</h2>
+        <p>Les données collectées sont utilisées pour le bon fonctionnement du site et le respect de la vie privée est assuré conformément à la réglementation.</p>
+    </section>
+
+    <section id="modification" class="hb-section">
+        <h2>Modification des CGU</h2>
+        <p>Hearth Blue se réserve le droit de modifier ces conditions à tout moment. Les utilisateurs seront informés des mises à jour sur le site.</p>
+    </section>
+</div>
+
+<div class="hb-cgu__footer">
+    <a href="/" class="hb-cta">Retour à l'accueil</a>
+</div>
+{% endblock %}

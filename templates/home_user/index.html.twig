@@ -1,126 +1,120 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Profil — Hearth Blue{% endblock %}
+{% block title %}Profil de {{ user.name }}{% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/profile.css') }}?v={{ 'now'|date('YmdHis') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 {% endblock %}
 
 {% block body %}
-<header class="profile-hero" id="top">
-    <div class="container profile-hero-inner" data-aos="fade-up" data-aos-duration="1000">
-        <div class="profile-id">
-            <div class="avatar-wrap">
-                <img src="{{ asset(user.avatarPath|default('images/placeholders/avatar.png')) }}" alt="Avatar" class="avatar">
-               
-                    <label class="btn-outline btn-upload">
-                        <input type="file" name="avatar" accept="image/*" hidden onchange="this.form.submit()">
-                        Changer l’avatar
-                    </label>
-                </form>
+<div class="profile-page">
+
+    <!-- HEADER PHOTO + INFO -->
+    <section class="profile-header">
+        <div class="container header-container">
+            <div class="avatar-section">
+                <img src="{{ asset(user.avatar ? 'uploads/avatars/' ~ user.avatar : 'images/default-avatar.png') }}" alt="Avatar" class="avatar">
+                <button class="btn-upload">Changer Photo</button>
             </div>
-            <div class="identity">
-                <h1>Bienvenue {{ user.username|default(user.email) }} 👋</h1>
-                <p class="muted">Membre depuis 
+            <div class="info-section">
+                <h1 class="name">{{ user.name }}, {{ user.age }}</h1>
+                <p class="location">{{ user.city }}, {{ user.country }}</p>
                 <div class="badges">
-                    {% for badge in user.badges|default([]) %}
-                        <span class="badge" title="{{ badge.description|default('Badge') }}">{{ badge.label|default('Badge') }}</span>
-                    {% else %}
-                        <span class="badge soft">Nouveau·elle</span>
+                    {% for badge in user.badges %}
+                        <span class="badge">{{ badge }}</span>
                     {% endfor %}
+                </div>
+                <div class="actions">
+                    <button class="btn-primary">Message</button>
+                    <button class="btn-outline">Favoris</button>
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="quick-actions">
-            <a href="{{ path('app_activity_new') }}" class="btn-primary">+ Créer une activité</a>
-            <a href="{{ path('app_activity_index') }}" class="btn-solid">Découvrir des activités</a>
-            <a href="" class="btn-outline">Éditer le profil</a>
+    <!-- À PROPOS -->
+    <section class="about-section">
+        <div class="container">
+            <h2>À propos de moi</h2>
+            <p>{{ user.about }}</p>
         </div>
-    </div>
-</header>
+    </section>
 
-<section class="profile-stats" id="stats">
-    <div class="container stats-grid" data-aos="fade-up">
-        <article class="stat-card">
-            <span class="stat-label">Participations a une activiter</span>
-            <span class="stat-value">{{ stats.joinedCount|default(0) }}</span>
-        </article>
-        <article class="stat-card">
-            <span class="stat-label">Activiter organisées</span>
-            <span class="stat-value">{{ stats.hostedCount|default(0) }}</span>
-        </article>
-        <article class="stat-card">
-            <span class="stat-label">Favoris</span>
-            <span class="stat-value">{{ stats.favoritesCount|default(0) }}</span>
-        </article>
-    </div>
-</section>
-
-<section class="profile-content" id="content">
-    <div class="container content-grid">
-        <div class="panel" data-aos="fade-right" data-aos-delay="100">
-            <div class="panel-header">
-                <h2>Activités à venir</h2>
-                <a class="link" href="">Tout voir</a>
-            </div>
-            <div class="cards">
-                {% for activity in upcoming|default([]) %}
-                    <article class="activity-line">
-                        <img class="thumb" src="{{ asset(activity.coverPath|default('images/placeholders/activity.jpg')) }}" alt="{{ activity.title }}">
-                        <div class="info">
-                            <h3 class="title">{{ activity.title }}</h3>
-                            <p class="meta">📍 {{ activity.city|default('Près de chez toi') }} · 📅 {{ activity.eventDate ? activity.eventDate|date('d M, H:i') : 'Bientôt' }}</p>
-                        </div>
-                        <div class="actions">
-                            <a class="btn-solid" href="{{ path('app_activity_show', {id: activity.id}) }}">Voir</a>
-                            <a class="btn-outline" href="{{ path('app_activity_leave', {id: activity.id}) }}">Quitter</a>
-                        </div>
-                    </article>
-                {% else %}
-                    <p class="empty">Aucune activité planifiée. <a href="{{ path('app_activity_index') }}">Explore les activités</a>.</p>
+    <!-- INTÉRÊTS -->
+    <section class="interests-section">
+        <div class="container">
+            <h2>Mes intérêts</h2>
+            <div class="interests">
+                {% for interest in user.interests %}
+                    <span class="interest">{{ interest }}</span>
                 {% endfor %}
             </div>
         </div>
+    </section>
 
-        <div class="panel" data-aos="fade-left" data-aos-delay="150">
-            <div class="panel-header">
-                <h2>Préférences</h2>
-                <a class="link" href="">Modifier</a>
+    <!-- GALERIE SLIDER -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2>Galerie</h2>
+            <div class="gallery-slider">
+                <button class="slider-btn prev">&#10094;</button>
+                <div class="slides">
+                    {% for photo in user.gallery %}
+                        <div class="slide">
+                            <img src="{{ asset('uploads/gallery/' ~ photo) }}" alt="Galerie">
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="slider-btn next">&#10095;</button>
             </div>
-            <div class="prefs">
-                <div class="pref-line">
-                    <span class="label">Villes favorites</span>
-                    <span class="value">{{ user.preferredCities|default(['Ta ville'])|join(', ') }}</span>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-section">
+        <div class="container">
+            <h2>Mes Stats</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">Taille</span>
+                    <span class="stat-value">{{ user.height }}</span>
                 </div>
-                <div class="pref-line">
-                    <span class="label">Catégories</span>
-                    <span class="value">{{ user.preferredCategories|default(['Sport','Sorties'])|join(', ') }}</span>
+                <div class="stat-card">
+                    <span class="stat-label">Poids</span>
+                    <span class="stat-value">{{ user.weight }}</span>
                 </div>
-                <div class="pref-line">
-                    <span class="label">Notifications</span>
-                    <span class="value">{{ user.notificationsEnabled is defined and user.notificationsEnabled ? 'Activées' : 'Désactivées' }}</span>
+                <div class="stat-card">
+                    <span class="stat-label">Centres d’intérêt</span>
+                    <span class="stat-value">{{ user.interests|length }}</span>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="danger-zone" id="danger">
-    <div class="container" data-aos="zoom-in">
-        <h2>Zone sensible</h2>
-        <p class="muted">Les actions ci-dessous sont irréversibles.</p>
-        <div class="danger-actions">
-            <form action="" method="post" onsubmit="return confirm('Supprimer définitivement ton compte ?');">
-                <button class="btn-danger" type="submit">Supprimer mon compte</button>
-            </form>
-        </div>
-    </div>
-</section>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
 <script>
-  AOS.init({ once: true, easing: 'ease-out-cubic', duration: 900 });
+    // SLIDER SIMPLE
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+    const slidesContainer = document.querySelector('.slides');
+    let currentIndex = 0;
+
+    function showSlide(index) {
+        if(index < 0) index = slides.length - 1;
+        if(index >= slides.length) index = 0;
+        currentIndex = index;
+        const offset = -index * 100;
+        slidesContainer.style.transform = 'translateX(' + offset + '%)';
+    }
+
+    prevBtn.addEventListener('click', () => showSlide(currentIndex - 1));
+    nextBtn.addEventListener('click', () => showSlide(currentIndex + 1));
+
+    showSlide(0);
 </script>
 {% endblock %}

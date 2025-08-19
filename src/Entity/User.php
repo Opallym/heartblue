@@ -36,6 +36,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    // --- Profil complet ---
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $name = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $age = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $city = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $country = null;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $about = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $avatar = null;
+
+    #[ORM\Column(type: 'json', nullable: true)]
+    private array $badges = [];
+
+    #[ORM\Column(type: 'json', nullable: true)]
+    private array $interests = [];
+
+    #[ORM\Column(type: 'json', nullable: true)]
+    private array $gallery = [];
+
+    #[ORM\Column(nullable: true)]
+    private ?int $height = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $weight = null;
+
     // Relation OneToMany avec Activity
     #[ORM\OneToMany(mappedBy: 'createdBy', targetEntity: Activity::class, orphanRemoval: true)]
     private Collection $activities;
@@ -45,6 +79,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->activities = new ArrayCollection();
     }
 
+    // --- Getters et Setters existants ---
     public function getId(): ?int
     {
         return $this->id;
@@ -58,7 +93,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -71,14 +105,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         $roles[] = 'ROLE_USER';
-
         return array_unique($roles);
     }
 
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
-
         return $this;
     }
 
@@ -90,7 +122,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
         return $this;
     }
 
@@ -98,7 +129,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $data = (array) $this;
         $data["\0".self::class."\0password"] = hash('crc32c', $this->password);
-
         return $data;
     }
 
@@ -107,15 +137,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // ...
     }
 
-    // --- Gestion de la relation OneToMany ---
+    // --- Getters et setters du profil complet ---
+    public function getName(): ?string { return $this->name; }
+    public function setName(?string $name): static { $this->name = $name; return $this; }
 
+    public function getAge(): ?int { return $this->age; }
+    public function setAge(?int $age): static { $this->age = $age; return $this; }
+
+    public function getCity(): ?string { return $this->city; }
+    public function setCity(?string $city): static { $this->city = $city; return $this; }
+
+    public function getCountry(): ?string { return $this->country; }
+    public function setCountry(?string $country): static { $this->country = $country; return $this; }
+
+    public function getAbout(): ?string { return $this->about; }
+    public function setAbout(?string $about): static { $this->about = $about; return $this; }
+
+    public function getAvatar(): ?string { return $this->avatar; }
+    public function setAvatar(?string $avatar): static { $this->avatar = $avatar; return $this; }
+
+    public function getBadges(): array { return $this->badges; }
+    public function setBadges(array $badges): static { $this->badges = $badges; return $this; }
+
+    public function getInterests(): array { return $this->interests; }
+    public function setInterests(array $interests): static { $this->interests = $interests; return $this; }
+
+    public function getGallery(): array { return $this->gallery; }
+    public function setGallery(array $gallery): static { $this->gallery = $gallery; return $this; }
+
+    public function getHeight(): ?int { return $this->height; }
+    public function setHeight(?int $height): static { $this->height = $height; return $this; }
+
+    public function getWeight(): ?int { return $this->weight; }
+    public function setWeight(?int $weight): static { $this->weight = $weight; return $this; }
+
+    // --- Gestion de la relation OneToMany ---
     /**
      * @return Collection<int, Activity>
      */
-    public function getActivities(): Collection
-    {
-        return $this->activities;
-    }
+    public function getActivities(): Collection { return $this->activities; }
 
     public function addActivity(Activity $activity): static
     {
@@ -123,7 +183,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->activities->add($activity);
             $activity->setCreatedBy($this);
         }
-
         return $this;
     }
 
@@ -134,7 +193,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $activity->setCreatedBy(null);
             }
         }
-
         return $this;
     }
 }
