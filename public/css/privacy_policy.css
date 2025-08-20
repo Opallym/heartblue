@@ -223,6 +223,48 @@ body {
     border-radius: 50%;
 }
 
+.privacy-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #2575fc, #cb7411);
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.privacy-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
+    background: linear-gradient(45deg, #cb7411, #2575fc);
+}
+
+.hb-privacy_footer {
+    text-align: center;
+    margin-top: 40px;
+    
+}
+
+.hb-privacy_footer .hb-cta {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #4A90E2;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 30px;
+    transition: background-color 0.3s;
+}
+
+.hb-privacy_footer .hb-cta:hover {
+    background-color: #357ABD;
+}
+
 /* =========================
    Responsive
    ========================= */

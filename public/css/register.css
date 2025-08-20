@@ -1,40 +1,286 @@
-.hb-register input[type="text"],
-.hb-register input[type="email"],
-.hb-register input[type="password"],
-.hb-register input[type="number"],
-.hb-register textarea,
-.hb-register select {
-    width: 100%;
-    padding: 0.9rem 1rem;
-    border-radius: 12px;
+/* ===== Scope strict : page d’inscription uniquement ===== */
+.register-page {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #f0f4f8, #ffffff);
+    color: #2c3e50;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* ===== Hero Section (style création d’activité) ===== */
+.register-page .register-hero {
+    position: relative;
+    text-align: center;
+    padding: 80px 20px 50px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #3498db, #ff6f61);
+    border-bottom-left-radius: 60% 20%;
+    border-bottom-right-radius: 60% 20%;
+    color: white;
+}
+
+.register-page .register-hero h1,
+.register-page .register-hero p {
+    position: relative;
+    z-index: 1;
+    /* texte au-dessus des animations */
+}
+
+.register-page .register-hero h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 15px;
+}
+
+.register-page .register-hero p {
+    font-size: 1.3rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+/* ===== Animations dynamiques ===== */
+
+/* Bulle gauche (déjà existante) */
+.register-page .register-anim {
+    position: absolute;
+    width: 200px;
+    height: 200px;
     background: rgba(255, 255, 255, 0.15);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    color: #fff;
+    border-radius: 50%;
+    top: -50px;
+    left: -50px;
+    animation: register-float1 8s ease-in-out infinite alternate;
+    z-index: 0;
+}
+
+/* Bulle droite (nouvelle) */
+.register-page .register-anim2 {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    top: -40px;
+    right: -60px;
+    animation: register-float2 10s ease-in-out infinite alternate;
+    z-index: 0;
+}
+
+/* Halo pulsant (nouveau) */
+.register-page .register-anim3 {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(circle,
+            rgba(255, 255, 255, 0.35) 0%,
+            rgba(255, 255, 255, 0.18) 40%,
+            rgba(255, 255, 255, 0.08) 60%,
+            rgba(255, 255, 255, 0.00) 70%);
+    animation: register-pulse 3.6s ease-in-out infinite;
+}
+
+/* Keyframes */
+@keyframes register-float1 {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(300px, 50px) scale(1.2);
+    }
+
+    100% {
+        transform: translate(0, 100px) scale(1);
+    }
+}
+
+@keyframes register-float2 {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-250px, 80px) scale(1.15);
+    }
+
+    100% {
+        transform: translate(0, 120px) scale(0.95);
+    }
+}
+
+@keyframes register-pulse {
+    0% {
+        opacity: .55;
+        transform: translateX(-50%) scale(0.95);
+    }
+
+    50% {
+        opacity: .9;
+        transform: translateX(-50%) scale(1.05);
+    }
+
+    100% {
+        opacity: .55;
+        transform: translateX(-50%) scale(0.95);
+    }
+}
+
+/* ===== Container ===== */
+.register-page .register-container {
+    max-width: 800px;
+    margin: -50px auto 50px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+/* ===== Form Wrapper ===== */
+.register-page .register-form-wrapper {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.register-page .register-form-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Form Fields ===== */
+.register-page .register-form .form-group {
+    position: relative;
+    margin-bottom: 25px;
+    animation: register-fadeInUp 0.5s ease forwards;
+}
+
+/* Champs */
+.register-page .register-form input,
+.register-page .register-form textarea,
+.register-page .register-form select {
+    width: 100%;
+    padding: 15px 45px 15px 15px;
+    /* place pour potentielle icône à droite */
+    border: 2px solid #e0eaff;
+    border-radius: 20px;
+    font-size: 1rem;
+    background: #fdfdff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+.register-page .register-form input:focus,
+.register-page .register-form textarea:focus,
+.register-page .register-form select:focus {
     outline: none;
-    transition: box-shadow .25s ease, border-color .25s ease;
+    border-color: #3498db;
+    box-shadow: 0 0 12px rgba(52, 152, 219, 0.25);
 }
 
-/* Placeholder */
-.hb-register input::placeholder,
-.hb-register textarea::placeholder {
-    color: rgba(255, 255, 255, 0.85);
-}
-
-/* Champs côte à côte pour Âge / Ville */
-.hb-register .form-row-two {
+/* Rangée demi-largeur (Âge / Ville) */
+.register-page .register-form .form-row {
     display: flex;
-    gap: 1rem;
+    gap: 20px;
 }
 
-.hb-register .form-row-two .form-group {
+.register-page .register-form .half-width {
     flex: 1;
 }
 
+/* Textarea (si besoin plus tard) */
+.register-page .register-form textarea {
+    min-height: 140px;
+    resize: vertical;
+}
 
-/* Focus */
-.hb-register input:focus,
-.hb-register textarea:focus,
-.hb-register select:focus {
-    border-color: #ff6f61;
-    box-shadow: 0 0 0 4px rgba(255, 111, 97, 0.25);
+/* Bouton principal */
+.register-page .register-form .btn-primary {
+    background: linear-gradient(135deg, #ff6f61, #ff9478);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 1rem 2rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: inline-block;
+    box-shadow: 0 8px 16px rgba(255, 111, 97, 0.5);
+    transition: all 0.3s ease;
+}
+
+.register-page .register-form .btn-primary:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 24px rgba(255, 111, 97, 0.7);
+    background: linear-gradient(135deg, #ff9478, #ff6f61);
+}
+
+/* Lien retour/connexion */
+.register-page a.back-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    color: #3498db;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+.register-page a.back-link:hover {
+    color: #ff6f61;
+    text-decoration: underline;
+}
+
+/* Erreurs (compatible helpers Symfony) */
+.register-page .register-form .form-error,
+.register-page .register-form .form-errors,
+.register-page .register-form .form-error-message,
+.register-page .register-form ul.form-errors,
+.register-page .invalid-feedback {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: -10px;
+    margin-bottom: 12px;
+    display: block;
+}
+
+/* Anim d’apparition des groupes */
+@keyframes register-fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .register-page .register-container {
+        padding: 0 15px;
+        margin-top: -30px;
+    }
+
+    .register-page .register-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .register-page .register-form-wrapper {
+        padding: 30px;
+    }
+
+    .register-page .register-form .form-row {
+        flex-direction: column;
+        gap: 15px;
+    }
 }

@@ -53,7 +53,7 @@
 				<div class="step" data-aos="zoom-in" data-aos-delay="50">
 					<div class="step-id">Étape 1</div>
 					<h3>Inscris-toi</h3>
-					<p>Crée ton profil en 1 minute.</p>
+					<p>Crée ton profil en 5 minute.</p>
 				</div>
 				<div class="step" data-aos="zoom-in" data-aos-delay="150">
 					<div class="step-id">Étape 2</div>
@@ -110,7 +110,6 @@
 						</div>
 					</article>
 				{% else %}
-					{# Placeholder si pas d'activités #}
 					{% for i in 1..6 %}
 						<article class="activity-card" data-aos="zoom-in" data-aos-delay="{{ i * 50 }}">
 							<img class="activity-thumb" src="{{ asset('images/placeholders/activity.jpg') }}" alt="Activité">
