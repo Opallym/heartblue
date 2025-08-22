@@ -1,95 +1,230 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Profil de {{ user.name }}{% endblock %}
+{% block title %}Profil de {{ user.getName() }}{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/profile.css') }}?v={{ "now"|date("YmdHis") }}">
 {% endblock %}
 
 {% block body %}
+{% set isOwner = app.user and app.user.id == user.id %}
+
 <div class="profile-page">
 
-    <!-- HEADER PHOTO + INFO -->
-    <section class="profile-header">
-        <div class="container header-container">
-            <div class="avatar-section">
-                <img src="{{ asset(user.avatar ? 'uploads/avatars/' ~ user.avatar : 'images/default-avatar.png') }}" alt="Avatar" class="avatar">
-                <button class="btn-upload">Changer Photo</button>
-            </div>
-            <div class="info-section">
-                <h1 class="name">{{ user.name }}, {{ user.age }}</h1>
-                <p class="location">{{ user.city }}, {{ user.country }}</p>
-                <div class="badges">
-                    {% for badge in user.badges %}
-                        <span class="badge">{{ badge }}</span>
-                    {% endfor %}
-                </div>
-                <div class="actions">
-                    <button class="btn-primary">Message</button>
-                    <button class="btn-outline">Favoris</button>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- HERO / HEADER -->
+  <section class="profile-hero">
+    <div class="hero-bg">
+      <span class="blob b1"></span>
+      <span class="blob b2"></span>
+      <span class="blob b3"></span>
+    </div>
 
-    <!-- À PROPOS -->
-    <section class="about-section">
-        <div class="container">
-            <h2>À propos de moi</h2>
-            <p>{{ user.about }}</p>
-        </div>
-    </section>
+    <div class="container hero-inner">
+      <div class="avatar-wrap">
+        <img
+          src="{{ asset(user.getAvatar() ? 'uploads/avatars/' ~ user.getAvatar() : 'images/default-avatar.png') }}"
+          alt="Avatar"
+          class="avatar"
+        >
+        {% if isOwner %}
+          <form class="avatar-edit" method="post" action="{{ path('profile_update_avatar') }}" enctype="multipart/form-data">
+            <input type="hidden" name="_token" value="{{ csrf_token('update_avatar') }}">
+            <label class="btn-upload">
+              Changer
+              <input type="file" name="avatar" accept="image/*" hidden onchange="this.form.submit()">
+            </label>
+          </form>
+        {% endif %}
+      </div>
 
-    <!-- INTÉRÊTS -->
-    <section class="interests-section">
-        <div class="container">
-            <h2>Mes intérêts</h2>
-            <div class="interests">
-                {% for interest in user.interests %}
-                    <span class="interest">{{ interest }}</span>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
+      <div class="hero-info">
+        <h1 class="name">
+          {{ user.getName() }}{% if user.getAge() is not null %}, {{ user.getAge() }}{% endif %}
+        </h1>
+        <p class="location">
+          {% if user.getCity() %}{{ user.getCity() }}{% if user.getCountry() %}, {{ user.getCountry() }}{% endif %}
+          {% else %}{{ user.getCountry() }}{% endif %}
+        </p>
 
-    <!-- GALERIE SLIDER -->
-    <section class="gallery-section">
-        <div class="container">
-            <h2>Galerie</h2>
-            <div class="gallery-slider">
-                <button class="slider-btn prev">&#10094;</button>
-                <div class="slides">
-                    {% for photo in user.gallery %}
-                        <div class="slide">
-                            <img src="{{ asset('uploads/gallery/' ~ photo) }}" alt="Galerie">
-                        </div>
-                    {% endfor %}
-                </div>
-                <button class="slider-btn next">&#10095;</button>
-            </div>
+        <div class="badges">
+          {% for badge in user.getBadges() %}
+            <span class="badge">🏷️ {{ badge }}</span>
+          {% else %}
+            <em class="muted">Aucun badge pour le moment</em>
+          {% endfor %}
         </div>
-    </section>
 
-    <!-- STATS -->
-    <section class="stats-section">
-        <div class="container">
-            <h2>Mes Stats</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-label">Taille</span>
-                    <span class="stat-value">{{ user.height }}</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-label">Poids</span>
-                    <span class="stat-value">{{ user.weight }}</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-label">Centres d’intérêt</span>
-                    <span class="stat-value">{{ user.interests|length }}</span>
-                </div>
-            </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="{{ path('app_message_new', {'to': user.id}) }}">Message</a>
+          <a class="btn btn-outline" href="{{ path('app_favorite_toggle', {'id': user.id}) }}">Favoris</a>
+
+          {% if isOwner %}
+          {% endif %}
         </div>
-    </section>
+
+        {% if isOwner %}
+          <form id="quick-badges" class="inline-form" method="post" action="{{ path('profile_badge_add') }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('badge_add') }}">
+            <input class="chip-input" type="text" name="badge" placeholder="Ajouter un badge (ex: 'Organisateur', 'Débutant rando')">
+            <button class="btn btn-small">Ajouter</button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="card-section about-section">
+    <div class="container">
+      <div class="section-head">
+        <h2>À propos de moi</h2>
+        {% if isOwner %}
+          <button class="link-edit" type="button" data-target="#form-about">Modifier</button>
+        {% endif %}
+      </div>
+
+      <p class="about-text">
+        {{ user.getAbout() ?: 'Présente-toi en quelques lignes : ton ambiance, ton rythme, ce que tu recherches…' }}
+      </p>
+
+      {% if isOwner %}
+        <form id="form-about" class="edit-form hidden" method="post" action="{{ path('profile_update_about') }}">
+          <input type="hidden" name="_token" value="{{ csrf_token('profile_update_about') }}">
+          <textarea class="form-control" name="about" rows="4" placeholder="Écris quelque chose…">{{ user.getAbout() }}</textarea>
+          <div class="form-actions">
+            <button class="btn btn-save">Enregistrer</button>
+            <button class="btn btn-cancel" type="button" data-close="#form-about">Annuler</button>
+          </div>
+        </form>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- INTERESTS -->
+  <section class="card-section interests-section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Mes centre d'interet</h2>
+        {% if isOwner %}
+          <button class="link-edit" type="button" data-target="#form-interests">Modifier</button>
+        {% endif %}
+      </div>
+
+      <div class="chips">
+        {% for interest in user.getInterests() %}
+          <span class="chip">🎯 {{ interest }}</span>
+        {% else %}
+          <em class="muted">Ajoute tes centres d’intérêt (rando, escalade, volley, café-jeux…)</em>
+        {% endfor %}
+      </div>
+
+      {% if isOwner %}
+        <form id="form-interests" class="edit-form hidden" method="post" action="{{ path('profile_update_interests') }}">
+          <input type="hidden" name="_token" value="{{ csrf_token('profile_update_interests') }}">
+          <input class="form-control" type="text" name="interests" value="{{ user.getInterests()|join(', ') }}"
+                 placeholder="Ex: rando, beach-volley, escape game">
+          <div class="form-actions">
+            <button class="btn btn-save">Enregistrer</button>
+            <button class="btn btn-cancel" type="button" data-close="#form-interests">Annuler</button>
+          </div>
+        </form>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="card-section gallery-section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Galerie</h2>
+      </div>
+
+      <div class="gallery-slider">
+        <button class="slider-btn prev" aria-label="Précédent">‹</button>
+        <div class="slides">
+          {% for photo in user.getGallery() %}
+            <div class="slide"><img src="{{ asset('uploads/gallery/' ~ photo) }}" alt="Galerie"></div>
+          {% else %}
+            <div class="slide"><img src="{{ asset('images/placeholder-gallery.jpg') }}" alt="Galerie"></div>
+          {% endfor %}
+        </div>
+        <button class="slider-btn next" aria-label="Suivant">›</button>
+      </div>
+
+      {% if isOwner %}
+        <form class="edit-form" method="post" action="{{ path('profile_gallery_add') }}" enctype="multipart/form-data">
+          <input type="hidden" name="_token" value="{{ csrf_token('gallery_add') }}">
+          <label class="btn btn-outline file-inline">
+            Ajouter des photos
+            <input type="file" name="photos[]" accept="image/*" multiple hidden onchange="this.form.submit()">
+          </label>
+        </form>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- INSIGHTS (à la place de taille/poids) -->
+  <section class="card-section insights-section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Mes infos clés</h2>
+        {% if isOwner %}
+          <button class="link-edit" type="button" data-target="#form-core">Modifier</button>
+        {% endif %}
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-icon">📅</span>
+          <span class="stat-label">Activités créées</span>
+          <span class="stat-value">{{ user.getActivities()|length }}</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">💡</span>
+          <span class="stat-label">Centres d’intérêt</span>
+          <span class="stat-value">{{ user.getInterests()|length }}</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">📍</span>
+          <span class="stat-label">Ville</span>
+          <span class="stat-value">{{ user.getCity() ?: '—' }}</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">🏷️</span>
+          <span class="stat-label">Badges</span>
+          <span class="stat-value">{{ user.getBadges()|length }}</span>
+        </div>
+      </div>
+
+      {% if isOwner %}
+        <form id="form-core" class="edit-form hidden" method="post" action="{{ path('profile_update_core') }}">
+          <input type="hidden" name="_token" value="{{ csrf_token('profile_update_core') }}">
+          <div class="grid-2">
+            <div>
+              <label for="name">Nom</label>
+              <input id="name" class="form-control" type="text" name="name" value="{{ user.getName() }}" required>
+            </div>
+            <div>
+              <label for="age">Âge</label>
+              <input id="age" class="form-control" type="number" name="age" min="18" max="100" value="{{ user.getAge() }}">
+            </div>
+            <div>
+              <label for="city">Ville</label>
+              <input id="city" class="form-control" type="text" name="city" value="{{ user.getCity() }}">
+            </div>
+            <div>
+              <label for="country">Pays</label>
+              <input id="country" class="form-control" type="text" name="country" value="{{ user.getCountry() }}">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-save">Enregistrer</button>
+            <button class="btn btn-cancel" type="button" data-close="#form-core">Annuler</button>
+          </div>
+        </form>
+      {% endif %}
+    </div>
+  </section>
 
 </div>
 
@@ -97,24 +232,37 @@
 
 {% block javascripts %}
 <script>
-    // SLIDER SIMPLE
-    const slides = document.querySelectorAll('.slide');
-    const prevBtn = document.querySelector('.prev');
-    const nextBtn = document.querySelector('.next');
-    const slidesContainer = document.querySelector('.slides');
-    let currentIndex = 0;
+// Toggle affichage des formulaires inline
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-target]');
+  if (btn) {
+    const sel = btn.getAttribute('data-target');
+    const form = document.querySelector(sel);
+    if (form) form.classList.toggle('hidden');
+  }
+  const closeBtn = e.target.closest('[data-close]');
+  if (closeBtn) {
+    const sel = closeBtn.getAttribute('data-close');
+    const form = document.querySelector(sel);
+    if (form) form.classList.add('hidden');
+  }
+});
 
-    function showSlide(index) {
-        if(index < 0) index = slides.length - 1;
-        if(index >= slides.length) index = 0;
-        currentIndex = index;
-        const offset = -index * 100;
-        slidesContainer.style.transform = 'translateX(' + offset + '%)';
-    }
-
-    prevBtn.addEventListener('click', () => showSlide(currentIndex - 1));
-    nextBtn.addEventListener('click', () => showSlide(currentIndex + 1));
-
-    showSlide(0);
+// Slider
+(function(){
+  const container = document.querySelector('.slides');
+  const slides = document.querySelectorAll('.slide');
+  const prev = document.querySelector('.prev');
+  const next = document.querySelector('.next');
+  let i = 0;
+  function show(idx){
+    if (!container || slides.length === 0) return;
+    i = (idx + slides.length) % slides.length;
+    container.style.transform = 'translateX(' + (-i * 100) + '%)';
+  }
+  prev && prev.addEventListener('click', () => show(i - 1));
+  next && next.addEventListener('click', () => show(i + 1));
+  show(0);
+})();
 </script>
 {% endblock %}
