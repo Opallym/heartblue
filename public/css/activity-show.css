@@ -1,0 +1,281 @@
+/* =======================================================
+   Hearth Blue — Activity View (v2)
+   Scope strict: .activity-view …
+   ======================================================= */
+
+.activity-view {
+    --blue: #0077ff;
+    --blue-2: #00c6ff;
+    --orange: #ff7b2c;
+    --ink: #0d1b2a;
+    --muted: #6b7a90;
+    --card: #ffffff;
+    --ring: rgba(0, 119, 255, .16);
+
+    color: var(--ink);
+    font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    margin-top: 96px;
+}
+
+.activity-view .container {
+    width: min(1100px, 92vw);
+    margin-inline: auto;
+}
+
+/* ---------- HERO ---------- */
+.activity-view .av-hero {
+    position: relative;
+    border-bottom-left-radius: 28px;
+    border-bottom-right-radius: 28px;
+    overflow: hidden;
+    background: #0b1e3a;
+    background-image: var(--av-cover);
+    background-size: cover;
+    background-position: center;
+    min-height: 280px;
+    display: grid;
+    align-items: end;
+}
+
+.activity-view .av-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10, 20, 40, .35), rgba(10, 20, 40, .75));
+    pointer-events: none;
+}
+
+.activity-view .av-hero-inner {
+    position: relative;
+    z-index: 1;
+    padding: 28px 0 34px;
+    color: #fff;
+}
+
+.activity-view .av-chip {
+    display: inline-block;
+    padding: .35rem .7rem;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: .9rem;
+    background: rgba(255, 255, 255, .18);
+    border: 1px solid rgba(255, 255, 255, .35);
+    backdrop-filter: blur(6px);
+}
+
+.activity-view .av-chip-cat {
+    background: linear-gradient(90deg, var(--blue-2), var(--blue));
+    border-color: rgba(255, 255, 255, .35);
+    box-shadow: 0 8px 18px rgba(0, 119, 255, .25);
+}
+
+.activity-view .av-title {
+    margin: .6rem 0 .3rem;
+    font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+    font-weight: 900;
+    letter-spacing: .2px;
+}
+
+.activity-view .av-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem 1rem;
+    list-style: none;
+    margin: .2rem 0 1rem;
+    padding: 0;
+    font-size: 1rem;
+}
+
+.activity-view .av-link {
+    color: #fff;
+    text-decoration: underline dotted rgba(255, 255, 255, .7);
+}
+
+.activity-view .av-link:hover {
+    text-decoration: underline;
+}
+
+.activity-view .av-actions {
+    display: flex;
+    gap: .6rem;
+    flex-wrap: wrap;
+}
+
+.activity-view .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .85rem 1.2rem;
+    border-radius: 14px;
+    font-weight: 800;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .22s ease, background .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.activity-view .btn-primary {
+    background: linear-gradient(90deg, var(--orange), #ff6f61);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 12px 28px rgba(255, 127, 44, .28);
+}
+
+.activity-view .btn-outline {
+    background: transparent;
+    color: #fff;
+    border-color: rgba(255, 255, 255, .85);
+}
+
+.activity-view .btn-ghost {
+    background: #ffffff1a;
+    color: #fff;
+    border-color: #ffffff33;
+}
+
+.activity-view .btn:hover {
+    transform: translateY(-2px);
+}
+
+/* ---------- GRID ---------- */
+.activity-view .av-grid {
+    display: grid;
+    grid-template-columns: 1.5fr .9fr;
+    gap: 1rem;
+    margin: 1rem 0 2rem;
+}
+
+@media (max-width: 860px) {
+    .activity-view .av-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- CARDS ---------- */
+.activity-view .av-card {
+    background:
+        linear-gradient(#ffffff, #ffffff) padding-box,
+        linear-gradient(180deg, rgba(0, 119, 255, .18), rgba(255, 127, 44, .18)) border-box;
+    border: 1px solid transparent;
+    border-radius: 18px;
+    box-shadow: 0 12px 28px rgba(13, 27, 42, .08);
+    padding: 1.1rem 1.2rem;
+}
+
+.activity-view .av-card h2,
+.activity-view .av-card h3 {
+    margin: .1rem 0 .6rem;
+    color: var(--blue);
+}
+
+.activity-view .av-desc {
+    color: var(--ink);
+    line-height: 1.6;
+}
+
+/* ---------- DETAILS ---------- */
+.activity-view .av-detail {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: .4rem .75rem;
+    align-items: start;
+    padding: .55rem 0;
+    border-bottom: 1px dashed #e7eefc;
+}
+
+.activity-view .av-detail:last-child {
+    border-bottom: none;
+}
+
+.activity-view .av-label {
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.activity-view .av-value {
+    color: var(--ink);
+}
+
+.activity-view .av-value .av-chip {
+    background: #eef6ff;
+    color: var(--blue);
+    border: 1px solid #d9eaff;
+}
+
+/* ---------- ORGANISER ---------- */
+.activity-view .av-organizer {
+    display: grid;
+    grid-template-columns: 54px 1fr;
+    gap: .7rem;
+    align-items: center;
+}
+
+.activity-view .av-avatar {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 8px 16px rgba(13, 27, 42, .12);
+}
+
+.activity-view .av-org-name {
+    font-weight: 900;
+}
+
+.activity-view .av-org-city {
+    color: var(--muted);
+    font-size: .95rem;
+}
+
+/* ---------- Fallback liens (au cas où) ---------- */
+.activity-view>a {
+    display: inline-block;
+    margin-top: 16px;
+    margin-right: 8px;
+    padding: .75rem 1.1rem;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 800;
+    background: #f7fbff;
+    color: var(--blue);
+    border: 2px solid #e2ecff;
+}
+
+.activity-view>a:hover {
+    background: #eaf3ff;
+}
+
+/* ---------- Responsive titres ---------- */
+@media (max-width: 520px) {
+    .activity-view .av-title {
+        font-size: 1.7rem;
+    }
+}
+
+/* ---------- Motion reduce ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .activity-view * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* ---------- Style du delete form inclus (si pas de classes) ---------- */
+.activity-view form button,
+.activity-view form .btn-delete {
+    padding: .8rem 1.2rem;
+    border-radius: 14px;
+    background: transparent;
+    border: 2px solid #d64545;
+    color: #d64545;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .22s ease, background .2s ease, color .2s ease;
+}
+
+.activity-view form button:hover,
+.activity-view form .btn-delete:hover {
+    background: #d64545;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(214, 69, 69, .22);
+}

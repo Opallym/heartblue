@@ -1,46 +1,149 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Activity
-{% endblock %}
+{% block title %}Activités{% endblock %}
 
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('css/activity-show.css') }}?v={{ 'now'|date('YmdHis') }}">
+{% endblock %}
 {% block body %}
-	<h1>Activity</h1>
+<div class="activity-view">
 
-	<table class="table">
-		<tbody>
-			<tr>
-				<th>Id</th>
-				<td>{{ activity.id }}</td>
-			</tr>
-			<tr>
-				<th>Title</th>
-				<td>{{ activity.title }}</td>
-			</tr>
-			<tr>
-				<th>Description</th>
-				<td>{{ activity.description }}</td>
-			</tr>
-			<tr>
-				<th>Date</th>
-				<td>{{ activity.date ? activity.date|date('Y-m-d H:i:s') : '' }}</td>
-			</tr>
-			<tr>
-				<th>Location</th>
-				<td>{{ activity.location }}</td>
-			</tr>
-			<tr>
-				<th>Category</th>
-				<td>{{ activity.category }}</td>
-			</tr>
-		</tbody>
-	</table>
+  {# HERO avec image de couverture #}
+  <section class="av-hero"
+           style="--av-cover: url('{{ asset(activity.coverPath|default('images/placeholders/activity.jpg')) }}')">
+    <div class="container av-hero-inner">
+      {% if activity.category %}
+        <span class="av-chip av-chip-cat">{{ activity.category }}</span>
+      {% endif %}
 
-	<a href="{{ path('app_activity_index') }}">back to list</a>
+      <h1 class="av-title">{{ activity.title }}</h1>
 
-	{% if app.user and (app.user == activity.createdBy or 'ROLE_ADMIN' in app.user.roles) %}
-		<a href="{{ path('app_activity_edit', {'id': activity.id}) }}">edit</a>
+      <ul class="av-meta">
+        {% if activity.location %}
+          <li>📍 <a class="av-link"
+                   href="https://www.google.com/maps/search/?api=1&query={{ activity.location|url_encode }}"
+                   target="_blank" rel="noopener">{{ activity.location }}</a></li>
+        {% endif %}
+        <li>
+          📅 <time id="av-time" datetime="{{ activity.date ? activity.date|date('c') : '' }}">
+              {{ activity.date ? activity.date|date('d M Y, H:i') : 'Bientôt' }}
+          </time>
+        </li>
+        <li id="av-countdown" data-date="{{ activity.date ? activity.date|date('c') : '' }}"></li>
+      </ul>
 
-		{{ include('activity/_delete_form.html.twig') }}
-	{% endif %}
+      <div class="av-actions">
+        <a href="{{ path('app_activity_index') }}" class="btn btn-outline">← Retour</a>
+
+        {% if app.user and (app.user == activity.createdBy or 'ROLE_ADMIN' in app.user.roles) %}
+          <a href="{{ path('app_activity_edit', {'id': activity.id}) }}" class="btn btn-primary">Modifier</a>
+          {{ include('activity/_delete_form.html.twig') }}
+        {% endif %}
+
+        <button type="button" class="btn btn-ghost" id="av-share">Partager</button>
+      </div>
+    </div>
+    <div class="av-overlay"></div>
+  </section>
+
+  <div class="container av-grid">
+    <!-- Colonne principale -->
+    <div class="av-main">
+      <section class="av-card">
+        <h2>À propos de l’activité</h2>
+        <p class="av-desc">
+          {{ activity.description ?: "L'organisateur n'a pas encore ajouté de description détaillée." }}
+        </p>
+      </section>
+    </div>
+
+    <!-- Colonne latérale -->
+    <aside class="av-side">
+      <section class="av-card">
+        <h3>Détails</h3>
+        <div class="av-detail">
+          <span class="av-label">Quand</span>
+          <span class="av-value">
+            <time>{{ activity.date ? activity.date|date('d M Y, H:i') : 'Bientôt' }}</time>
+          </span>
+        </div>
+        <div class="av-detail">
+          <span class="av-label">Où</span>
+          <span class="av-value">
+            {% if activity.location %}
+              <a class="av-link"
+                 href="https://www.google.com/maps/search/?api=1&query={{ activity.location|url_encode }}"
+                 target="_blank" rel="noopener">{{ activity.location }}</a>
+            {% else %} — {% endif %}
+          </span>
+        </div>
+        <div class="av-detail">
+          <span class="av-label">Catégorie</span>
+          <span class="av-value">{% if activity.category %}<span class="av-chip">{{ activity.category }}</span>{% else %}—{% endif %}</span>
+        </div>
+      </section>
+
+      {% set organizer = activity.createdBy ?? null %}
+      <section class="av-card">
+        <h3>Organisateur</h3>
+        <div class="av-organizer">
+          <img class="av-avatar"
+               src="{{ asset(organizer and organizer.avatar ? 'uploads/avatars/' ~ organizer.avatar : 'images/default-avatar.png') }}"
+               alt="Organisateur">
+          <div>
+            <div class="av-org-name">{{ organizer ? organizer.name : 'Utilisateur' }}</div>
+            {% if organizer and organizer.city %}
+              <div class="av-org-city">📍 {{ organizer.city }}{% if organizer.country %}, {{ organizer.country }}{% endif %}</div>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+    </aside>
+  </div>
+</div>
 
 {% endblock %}
+{% block javascripts %}
+<script>
+(function(){
+  // Partage
+  const shareBtn = document.getElementById('av-share');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', async () => {
+      const url = window.location.href;
+      const title = document.querySelector('.av-title')?.textContent?.trim() || 'Activité';
+      try {
+        if (navigator.share) {
+          await navigator.share({ title, url });
+        } else {
+          await navigator.clipboard.writeText(url);
+          shareBtn.textContent = 'Lien copié ✔';
+          setTimeout(() => shareBtn.textContent = 'Partager', 1500);
+        }
+      } catch (e) {}
+    });
+  }
+
+  // Compte à rebours
+  const cd = document.getElementById('av-countdown');
+  const dateStr = cd?.dataset.date || '';
+  if (cd && dateStr) {
+    const target = new Date(dateStr).getTime();
+    const tick = () => {
+      const now = Date.now();
+      const diff = target - now;
+      if (isNaN(target)) { cd.textContent = ''; return; }
+      if (diff <= 0) { cd.textContent = '⏱ En cours ou terminé'; return; }
+      const d = Math.floor(diff / (24*3600e3));
+      const h = Math.floor((diff % (24*3600e3)) / 3600e3);
+      const m = Math.floor((diff % 3600e3) / 60e3);
+      cd.textContent = `⏳ Dans ${d}j ${h}h ${m}m`;
+    };
+    tick();
+    setInterval(tick, 30e3);
+  }
+})();
+</script>
+{% endblock %}
+
