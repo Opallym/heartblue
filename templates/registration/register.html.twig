@@ -10,20 +10,26 @@
 <main class="register-page">
 
   <section class="register-hero">
-    <div class="register-anim"></div>   
-    <div class="register-anim2"></div>  
-    <div class="register-anim3"></div>  
+    <div class="register-anim"></div>
+    <div class="register-anim2"></div>
+    <div class="register-anim3"></div>
 
     <h1>Crée ton compte</h1>
     <p>Rejoins Hearth Blue pour créer, découvrir et participer aux activités près de chez toi.</p>
     <a class="back-link" href="{{ path('app_login') }}">Déjà un compte ? Se connecter</a>
   </section>
-  
+
   <div class="register-container">
     <div class="register-form-wrapper">
-      {{ form_errors(registrationForm) }}
 
-      {{ form_start(registrationForm, { attr: { class: 'register-form' } }) }}
+      {{ form_start(registrationForm, {
+        action: path('app_register'),
+        method: 'POST',
+        attr: { class: 'register-form', 'data-ajax': 'off' }
+      }) }}
+      {# évite l'interception par un JS global #}
+
+        {{ form_errors(registrationForm) }}
 
         <div class="form-group">
           {{ form_row(registrationForm.name, { label: 'Nom complet' }) }}
@@ -51,10 +57,14 @@
         </div>
 
         <div class="form-group">
-          {{ form_row(registrationForm.agreeTerms, { label: 'J’accepte les Conditions Génerale d\'Utilisation' }) }}
+          {{ form_row(registrationForm.agreeTerms, { label: "J'accepte les Conditions Générales d'Utilisation" }) }}
         </div>
 
         <button type="submit" class="btn-primary">Créer mon compte</button>
+
+      {{ form_end(registrationForm) }}
+
+    </div>
   </div>
 
 </main>

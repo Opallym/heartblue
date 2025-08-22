@@ -18,7 +18,8 @@
 
     <div class="container">
         <div class="activity-form-wrapper">
-            {{ include('activity/_form.html.twig') }}
+            {# IMPORTANT: le partial rend form_start/form_end #}
+            {{ include('activity/_form.html.twig', { button_label: 'Créer l’activité' }) }}
         </div>
 
         <a href="{{ path('app_activity_index') }}" class="back-link">← Retour à la liste</a>
@@ -28,12 +29,18 @@
 
 {% block javascripts %}
 <script>
-// Ajout d'icônes dynamiques dans les champs
-document.querySelectorAll('.activity-form input, .activity-form textarea, .activity-form select').forEach((el) => {
+document.addEventListener('DOMContentLoaded', () => {
+  const fields = document.querySelectorAll(
+    '.activity-form input:not([type="hidden"]):not([type="file"]), .activity-form textarea, .activity-form select'
+  );
+  fields.forEach((el) => {
+    const parent = el.closest('.form-group') || el.parentElement;
+    if (!parent) return;
+    parent.classList.add('form-group');
     const icon = document.createElement('i');
-    icon.classList.add('fa', 'fa-pencil-alt'); 
-    el.parentNode.classList.add('form-group');
-    el.parentNode.appendChild(icon);
+    icon.className = 'fa fa-pencil-alt';
+    parent.appendChild(icon);
+  });
 });
 </script>
 {% endblock %}
